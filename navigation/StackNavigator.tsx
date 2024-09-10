@@ -1,24 +1,19 @@
+// StackNavigator.tsx
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import Home from '../app/index'; // Ensure this path is correct
-import Dashboard from '../app/Dashboard'; // Ensure this path is correct
-import { RootStackParamList } from './types'; // Import types
+import Home from '~/app/index'; // Ensure this path is correct
+import Dashboard from '~/app/Dashboard'; // Ensure this path is correct
+import { RootStackParamList } from '~/navigation/types'; // Adjust the path if needed
 
-const Stack = createStackNavigator<RootStackParamList>(); // Create a stack navigator with type
+const Stack = createStackNavigator<RootStackParamList>();
 
 const StackNavigator: React.FC = () => {
+  
   return (
-    <Stack.Navigator>
-      <Stack.Screen
-        name="Home"
-        component={Home}
-        options={{ title: 'Home' }}
-      />
-      <Stack.Screen
-        name="Dashboard"
-        component={Dashboard}
-        options={{ title: 'Dashboard' }}
-      />
+    <Stack.Navigator initialRouteName="Home">
+      <Stack.Screen name="Home" component={Home} />
+      <Stack.Screen name="Dashboard" component={Dashboard} />
+      {/* Add other screens here if necessary */}
     </Stack.Navigator>
   );
 };
