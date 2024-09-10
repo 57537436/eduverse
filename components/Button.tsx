@@ -1,3 +1,4 @@
+import React from 'react';
 import { ComponentProps, forwardRef } from 'react';
 import { TamaguiElement } from 'tamagui';
 
