@@ -5,20 +5,49 @@ import { Container } from '~/tamagui.config';
 import SearchBar from './SearchBar'; // Adjust the path if needed
 import Footer from './Footer'; // Adjust the path if needed'
 
+interface Course {
+  id: string;
+  name: string;
+  image: any; // Use `ImageSourcePropType` for better type safety
+  price: string;
+  description: string;
+}
 
-// Updated course data
-const allCourses = [
-  { id: '1', name: 'Basic JavaScript', image: require('../assets/basic-javascript.jpg') },
-  { id: '2', name: 'Advanced React.js', image: require('../assets/advanced-react.png') },
-  { id: '3', name: 'Introduction to Python', image: require('../assets/introduction-python.jpg') },
-  { id: '4', name: 'Mastering TypeScript', image: require('../assets/mastering-typescript.jpg') },
-  
-
+const allCourses: Course[] = [
+  {
+    id: '1',
+    name: 'Basic JavaScript',
+    image: require('../assets/basic-javascript.jpg'),
+    price: 'R500',
+    description: 'Learn the fundamentals of JavaScript, the most popular programming language for web development.'
+  },
+  {
+    id: '2',
+    name: 'Advanced React.js',
+    image: require('../assets/advanced-react.png'),
+    price: 'R700',
+    description: 'Deep dive into advanced topics in React.js, including state management and performance optimization.'
+  },
+  {
+    id: '3',
+    name: 'Introduction to Python',
+    image: require('../assets/introduction-python.jpg'),
+    price: 'R600',
+    description: 'A beginner-friendly course that introduces Python programming language and its applications.'
+  },
+  {
+    id: '4',
+    name: 'Mastering TypeScript',
+    image: require('../assets/mastering-typescript.jpg'),
+    price: 'R650',
+    description: 'Comprehensive guide to mastering TypeScript, a superset of JavaScript that adds static types.'
+  },
 ];
 
 const Dashboard: React.FC = () => {
-  const [searchQuery, setSearchQuery] = useState('');
-  const [isSearchVisible, setSearchVisible] = useState(false);
+  const [searchQuery, setSearchQuery] = useState<string>('');
+  const [isSearchVisible, setSearchVisible] = useState<boolean>(false);
+  const [selectedCourse, setSelectedCourse] = useState<Course | null>(null); // State for selected course
 
   // Filter courses based on search query
   const filteredCourses = allCourses.filter(course =>
@@ -27,6 +56,10 @@ const Dashboard: React.FC = () => {
 
   const handleSearchPress = () => {
     setSearchVisible(!isSearchVisible);
+  };
+
+  const handleCoursePress = (course: Course) => {
+    setSelectedCourse(course);
   };
 
   return (
@@ -47,7 +80,7 @@ const Dashboard: React.FC = () => {
                   <TouchableOpacity
                     key={course.id}
                     style={styles.courseCard}
-                    onPress={() => console.log('Go to Course Details')}
+                    onPress={() => handleCoursePress(course)}
                   >
                     <Image
                       source={course.image}
@@ -62,6 +95,17 @@ const Dashboard: React.FC = () => {
             </View>
           </ScrollView>
         </View>
+
+        {selectedCourse && (
+          <View style={styles.courseDetails}>
+            <Heading style={styles.courseTitle}>{selectedCourse.name}</Heading>
+            <Text style={styles.courseDescription}>{selectedCourse.description}</Text>
+            <Text style={styles.coursePrice}>Enroll Course - {selectedCourse.price}</Text>
+            <TouchableOpacity style={styles.enrollButton} onPress={() => console.log('Enroll')}>
+              <Text style={styles.enrollButtonText}>Enroll Now</Text>
+            </TouchableOpacity>
+          </View>
+        )}
 
         <View style={styles.section}>
           <Heading style={styles.sectionHeading}>User Progress</Heading>
@@ -144,6 +188,32 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   linkText: {
+    color: '#fff',
+    fontSize: 16,
+  },
+  courseDetails: {
+    marginVertical: 20,
+    padding: 16,
+    backgroundColor: '#f9f9f9',
+    borderRadius: 8,
+  },
+  courseDescription: {
+    fontSize: 16,
+    fontWeight: '400',
+    marginVertical: 10,
+  },
+  coursePrice: {
+    fontSize: 18,
+    fontWeight: '700',
+    marginVertical: 10,
+  },
+  enrollButton: {
+    backgroundColor: '#007bff',
+    padding: 10,
+    borderRadius: 8,
+    alignItems: 'center',
+  },
+  enrollButtonText: {
     color: '#fff',
     fontSize: 16,
   },
