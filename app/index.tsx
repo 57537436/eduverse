@@ -3,7 +3,7 @@ import { Stack, Link } from 'expo-router';
 import { Button } from '~/components/Button';
 import { Container } from '~/components/Container';
 import { Heading } from '@gluestack-ui/themed';
-import { Text, Image, ScrollView, View, TouchableOpacity } from 'react-native';
+import { Text, Image, ScrollView, View, TouchableOpacity, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../navigation/types'; // Import the types
@@ -24,37 +24,37 @@ const Home: React.FC = () => {
         }} 
       />
 
-      <ScrollView showsVerticalScrollIndicator={true}>
+      <ScrollView showsVerticalScrollIndicator={true} contentContainerStyle={styles.scrollView}>
         {/* Button to Navigate to Dashboard */}
         <TouchableOpacity 
-          style={{ backgroundColor: '#007bff', padding: 8, borderRadius: 5, margin: 10, alignItems: 'center' }} 
+          style={styles.button} 
           onPress={() => navigation.navigate('Dashboard')} // Navigate to Dashboard
         >
-          <Text style={{ color: '#fff', fontSize: 14 }}>Go to Dashboard</Text>
+          <Text style={styles.buttonText}>Go to Dashboard</Text>
         </TouchableOpacity>
 
-        <Heading style={{ fontSize: 32, fontWeight: '500', marginHorizontal: 5 }}>Courses</Heading>
-        <Text style={{ marginHorizontal: 5, fontSize: 16, marginBottom: -20 }}>What do you wanna learn?</Text>
+        <Heading style={styles.heading}>Courses</Heading>
+        <Text style={styles.subheading}>What do you wanna learn?</Text>
 
         {/* First Container */}
         <Container>
-          <Heading style={{ marginHorizontal: -30, fontSize: 20, fontWeight: '400' }}>Programming</Heading>
+          <Heading style={styles.containerHeading}>Programming</Heading>
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            <View style={{ flexDirection: 'row', paddingVertical: 10 }}>
+            <View style={styles.imageRow}>
               <Image
                 source={require('../assets/php.jpg')}
-                style={{ width: 200, height: 150, marginHorizontal: 1, borderRadius: 10 }} // Apply rounded corners
-                alt="Programming Image"
+                style={styles.image}
+                alt="PHP"
               />
               <Image
                 source={require('../assets/coo.jpg')}
-                style={{ width: 200, height: 150, marginHorizontal: 80, borderRadius: 10 }} // Apply rounded corners
-                alt="Programming Image"
+                style={styles.image}
+                alt="COO"
               />
               <Image
                 source={require('../assets/java.jpg')}
-                style={{ width: 200, height: 150, marginHorizontal: 20, borderRadius: 10 }} // Apply rounded corners
-                alt="Programming Image"
+                style={styles.image}
+                alt="Java"
               />
             </View>
           </ScrollView>
@@ -62,23 +62,23 @@ const Home: React.FC = () => {
 
         {/* Second Container */}
         <Container>
-          <Heading style={{ marginHorizontal: -30, fontSize: 20, fontWeight: '400' }}>Software Engineering</Heading>
+          <Heading style={styles.containerHeading}>Software Engineering</Heading>
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            <View style={{ flexDirection: 'row', paddingVertical: 10 }}>
+            <View style={styles.imageRow}>
               <Image
                 source={require('../assets/hlooho.jpg')}
-                style={{ width: 200, height: 150, marginHorizontal: 1, borderRadius: 10 }} // Apply rounded corners
-                alt="Programming Image"
+                style={styles.image}
+                alt="Software Engineering"
               />
               <Image
                 source={require('../assets/soft.jpg')}
-                style={{ width: 200, height: 150, marginHorizontal: 80, borderRadius: 10 }} // Apply rounded corners
-                alt="Programming Image"
+                style={styles.image}
+                alt="Software"
               />
               <Image
                 source={require('../assets/clss.jpg')}
-                style={{ width: 200, height: 150, marginHorizontal: 20, borderRadius: 10 }} // Apply rounded corners
-                alt="Programming Image"
+                style={styles.image}
+                alt="Class"
               />
             </View>
           </ScrollView>
@@ -86,23 +86,23 @@ const Home: React.FC = () => {
 
         {/* Third Container */}
         <Container>
-          <Heading style={{ marginHorizontal: -30, fontSize: 20, fontWeight: '400' }}>Artificial Intelligence</Heading>
+          <Heading style={styles.containerHeading}>Artificial Intelligence</Heading>
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            <View style={{ flexDirection: 'row', paddingVertical: 10 }}>
+            <View style={styles.imageRow}>
               <Image
                 source={require('../assets/new.jpg')}
-                style={{ width: 200, height: 150, marginHorizontal: 1, borderRadius: 10 }} // Apply rounded corners
-                alt="Programming Image"
+                style={styles.image}
+                alt="AI"
               />
               <Image
                 source={require('../assets/coo.jpg')}
-                style={{ width: 200, height: 150, marginHorizontal: 80, borderRadius: 10 }} // Apply rounded corners
-                alt="Programming Image"
+                style={styles.image}
+                alt="COO"
               />
               <Image
                 source={require('../assets/bist.jpg')}
-                style={{ width: 200, height: 150, marginHorizontal: 20, borderRadius: 10 }} // Apply rounded corners
-                alt="Programming Image"
+                style={styles.image}
+                alt="BIST"
               />
             </View>
           </ScrollView>
@@ -115,5 +115,47 @@ const Home: React.FC = () => {
     </>
   );
 };
+
+const styles = StyleSheet.create({
+  scrollView: {
+    paddingVertical: 10,
+  },
+  button: {
+    backgroundColor: '#007bff',
+    padding: 10,
+    borderRadius: 5,
+    margin: 10,
+    alignItems: 'center',
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 14,
+  },
+  heading: {
+    fontSize: 32,
+    fontWeight: '500',
+    marginHorizontal: 10,
+  },
+  subheading: {
+    marginHorizontal: 10,
+    fontSize: 16,
+    marginBottom: 10,
+  },
+  containerHeading: {
+    marginHorizontal: 10,
+    fontSize: 20,
+    fontWeight: '400',
+  },
+  imageRow: {
+    flexDirection: 'row',
+    paddingVertical: 10,
+  },
+  image: {
+    width: 200,
+    height: 150,
+    marginHorizontal: 10,
+    borderRadius: 10,
+  },
+});
 
 export default Home;
