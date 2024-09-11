@@ -1,6 +1,6 @@
 // components/HeaderButtons.tsx
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Platform } from 'react-native';
 import { useRouter } from 'expo-router'; // Use Expo Router's useRouter
 
 const HeaderButtons: React.FC = () => {
@@ -10,15 +10,15 @@ const HeaderButtons: React.FC = () => {
     <View style={styles.container}>
       <TouchableOpacity 
         style={styles.button} 
-        onPress={() => router.push('/SignUpScreen')} // Adjust based on your routing setup
+        onPress={() => router.push('/SignUpScreen')} // Navigate to Sign Up screen
       >
-        <Text style={styles.buttonText}>SignUp</Text>
+        <Text style={styles.buttonText}>Sign Up</Text>
       </TouchableOpacity>
       <TouchableOpacity 
         style={styles.button} 
-        onPress={() => router.push('/LogInScreen')} // Adjust based on your routing setup
+        onPress={() => router.push('/LogInScreen')} // Navigate to Log In screen
       >
-        <Text style={styles.buttonText}>LogIn</Text>
+        <Text style={styles.buttonText}>Log In</Text>
       </TouchableOpacity>
     </View>
   );
@@ -28,14 +28,22 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
+    marginRight: Platform.OS === 'ios' ? 10 : 0, // Adjust margin for iOS
   },
   button: {
-    padding: 10,
+    paddingVertical: 8,
+    paddingHorizontal: 12,
     marginHorizontal: 5,
+    borderRadius: 5,
+    borderWidth: 1,
+    borderColor: '#007bff', // Border color matching the button color
+    backgroundColor: '#fff', // White background for buttons
+    alignItems: 'center',
   },
   buttonText: {
-    color: '#007bff',
+    color: '#007bff', // Button text color matching the border
     fontSize: 16,
+    fontWeight: 'bold',
   },
 });
 
