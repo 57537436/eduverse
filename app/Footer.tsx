@@ -1,39 +1,32 @@
-// Footer.tsx
 import React from 'react';
 import { View, TouchableOpacity, StyleSheet } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import { useNavigation } from '@react-navigation/native';
-import { RootStackParamList } from '~/navigation/types';
-import { StackNavigationProp } from '@react-navigation/stack';
-
-// Define the type for navigation prop
-type FooterNavigationProp = StackNavigationProp<RootStackParamList, 'Home'>;
+import { Ionicons, FontAwesome } from '@expo/vector-icons'; // Make sure to install these packages
 
 interface FooterProps {
   onSearchPress: () => void;
 }
 
 const Footer: React.FC<FooterProps> = ({ onSearchPress }) => {
-  // Use the navigation type here
-  const navigation = useNavigation<FooterNavigationProp>();
-
-  const goHome = () => {
-    navigation.navigate('Home'); // Navigate to the Home screen
-  };
-
   return (
     <View style={styles.footer}>
-      <TouchableOpacity style={styles.iconButton} onPress={goHome}>
-        <Icon name="home" size={24} color="#007bff" />
+      {/* Search Button */}
+      <TouchableOpacity onPress={onSearchPress} style={styles.iconButton}>
+        <Ionicons name="search" size={24} color="#007bff" />
       </TouchableOpacity>
-      <TouchableOpacity style={styles.iconButton} onPress={onSearchPress}>
-        <Icon name="search" size={24} color="#007bff" />
-      </TouchableOpacity>
+      
+      {/* Home Button */}
       <TouchableOpacity style={styles.iconButton}>
-        <Icon name="save" size={24} color="#007bff" />
+        <Ionicons name="home" size={24} color="#007bff" />
       </TouchableOpacity>
+      
+      {/* Notifications Button */}
       <TouchableOpacity style={styles.iconButton}>
-        <Icon name="person" size={24} color="#007bff" />
+        <Ionicons name="notifications-outline" size={24} color="#007bff" />
+      </TouchableOpacity>
+      
+      {/* Profile Button */}
+      <TouchableOpacity style={styles.iconButton}>
+        <FontAwesome name="user" size={24} color="#007bff" />
       </TouchableOpacity>
     </View>
   );
@@ -41,12 +34,13 @@ const Footer: React.FC<FooterProps> = ({ onSearchPress }) => {
 
 const styles = StyleSheet.create({
   footer: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
     padding: 10,
-    backgroundColor: '#fff',
+    backgroundColor: '#f8f8f8',
     borderTopWidth: 1,
     borderTopColor: '#ddd',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
   },
   iconButton: {
     padding: 10,

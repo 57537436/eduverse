@@ -1,36 +1,23 @@
-// app/CourseDetail.tsx
+// screens/CourseDetails.tsx
 import React from 'react';
-import { View, Text, Image, StyleSheet, SafeAreaView, TouchableOpacity, ScrollView } from 'react-native';
-import { useRoute } from '@react-navigation/native';
-import { RootStackParamList } from '../navigation/types';
-import { StackNavigationProp } from '@react-navigation/stack';
+import { View, Text, Image, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
+import { RouteProp, useRoute } from '@react-navigation/native';
 
-type RouteParams = {
-  course: {
-    name: string;
-    description: string;
-    image: any; // Can be a require or a URL
-    price: string;
-  };
-};
+type CourseDetailsRouteProp = RouteProp<{ CourseDetails: { course: any } }, 'CourseDetails'>;
 
-type NavigationProp = StackNavigationProp<RootStackParamList, 'CourseDetail'>;
-
-const CourseDetail: React.FC = () => {
-  const route = useRoute();
-  const { course } = route.params as RouteParams;
+const CourseDetails: React.FC = () => {
+  const route = useRoute<CourseDetailsRouteProp>();
+  const { course } = route.params;
 
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollView}>
         <Image source={course.image} style={styles.image} />
         <View style={styles.detailsContainer}>
-          <Text style={styles.heading}>{course.name}</Text>
+          <Text style={styles.title}>{course.title}</Text>
           <Text style={styles.description}>{course.description}</Text>
-          <Text style={styles.price}>Price: {course.price}</Text>
-          <TouchableOpacity style={styles.enrollButton} onPress={() => console.log('Enroll button pressed')}>
-            <Text style={styles.enrollButtonText}>Enroll in this</Text>
-          </TouchableOpacity>
+          <Text style={styles.price}>{course.price}</Text>
+          <Text style={styles.enrollButton}>Enroll in this course</Text>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -48,33 +35,33 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 200,
     borderRadius: 10,
+    marginBottom: 20,
   },
   detailsContainer: {
-    marginVertical: 20,
+    paddingHorizontal: 10,
   },
-  heading: {
+  title: {
     fontSize: 24,
     fontWeight: 'bold',
+    marginBottom: 10,
   },
   description: {
     fontSize: 16,
-    marginVertical: 10,
+    color: '#666',
+    marginBottom: 20,
   },
   price: {
     fontSize: 18,
-    marginVertical: 10,
-    fontWeight: 'bold',
+    color: '#007bff',
+    marginBottom: 20,
   },
   enrollButton: {
     backgroundColor: '#007bff',
-    padding: 15,
-    borderRadius: 5,
-    alignItems: 'center',
-  },
-  enrollButtonText: {
     color: '#fff',
-    fontSize: 16,
+    padding: 15,
+    textAlign: 'center',
+    borderRadius: 5,
   },
 });
 
-export default CourseDetail;
+export default CourseDetails;

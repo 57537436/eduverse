@@ -18,6 +18,7 @@
     "@gluestack-ui/overlay": "^0.1.15",
     "@gluestack-ui/themed": "^1.1.50",
     "@gluestack-ui/toast": "^1.0.7",
+    "@react-native-picker/picker": "^2.8.0",
     "@react-navigation/native": "^6.1.18",
     "@react-navigation/stack": "^6.4.1",
     "@tamagui/font-inter": "1.74.8",

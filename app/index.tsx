@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Stack } from 'expo-router';
 import { Button } from '~/components/Button';
 import { Container } from '~/components/Container';
 import { Heading } from '@gluestack-ui/themed';
-import { Text, Image, ScrollView, View, TouchableOpacity, StyleSheet, SafeAreaView, TouchableWithoutFeedback } from 'react-native';
+import { Text, Image, ScrollView, View, TouchableOpacity, StyleSheet, SafeAreaView, TextInput } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../navigation/types'; // Import the types
@@ -14,11 +14,17 @@ import Footer from './Footer'; // Import the Footer component
 type NavigationProp = StackNavigationProp<RootStackParamList, 'Home'>;
 
 const Home: React.FC = () => {
+  const [searchVisible, setSearchVisible] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
   const navigation = useNavigation<NavigationProp>(); // Use the typed navigation
 
   const handleSearchPress = () => {
-    // Handle search button press
-    console.log('Search button pressed');
+    setSearchVisible(!searchVisible);
+  };
+
+  const handleSearchChange = (text: string) => {
+    setSearchQuery(text);
+    // Implement search logic here
   };
 
   return (
@@ -29,6 +35,17 @@ const Home: React.FC = () => {
           headerRight: () => <HeaderButtons />, // Set custom header component
         }} 
       />
+
+      {searchVisible && (
+        <View style={styles.searchBarContainer}>
+          <TextInput 
+            style={styles.searchInput}
+            placeholder="Search for courses..."
+            value={searchQuery}
+            onChangeText={handleSearchChange}
+          />
+        </View>
+      )}
 
       <ScrollView showsVerticalScrollIndicator={true} contentContainerStyle={styles.scrollView}>
         {/* Button to Navigate to Dashboard */}
@@ -44,48 +61,48 @@ const Home: React.FC = () => {
 
         {/* First Container: Programming Languages */}
         <Container>
-          <TouchableWithoutFeedback 
+          <TouchableOpacity 
             onPress={() => navigation.navigate('AllProgrammingLanguages')} // Navigate to view all programming languages
           >
             <Text style={styles.viewAllText}>View All Programming Languages</Text>
-          </TouchableWithoutFeedback>
+          </TouchableOpacity>
           <Heading style={styles.containerHeading}>Programming</Heading>
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             <View style={styles.imageRow}>
               <Image
                 source={require('../assets/php.jpg')}
                 style={styles.image}
-                alt="PHP"
+                accessibilityLabel="PHP"
               />
               <Image
                 source={require('../assets/coo.jpg')}
                 style={styles.image}
-                alt="COO"
+                accessibilityLabel="COO"
               />
               <Image
                 source={require('../assets/java.jpg')}
                 style={styles.image}
-                alt="Java"
+                accessibilityLabel="Java"
               />
               <Image
                 source={require('../assets/c-programming.png')}
                 style={styles.image}
-                alt="C Programming"
+                accessibilityLabel="C Programming"
               />
               <Image
                 source={require('../assets/java-programming.jpg')}
                 style={styles.image}
-                alt="Java Programming"
+                accessibilityLabel="Java Programming"
               />
               <Image
                 source={require('../assets/python-programming.jpg')}
                 style={styles.image}
-                alt="Python Programming"
+                accessibilityLabel="Python Programming"
               />
               <Image
                 source={require('../assets/cpp-programming.png')}
                 style={styles.image}
-                alt="C++ Programming"
+                accessibilityLabel="C++ Programming"
               />
             </View>
           </ScrollView>
@@ -93,43 +110,43 @@ const Home: React.FC = () => {
 
         {/* Second Container: Computer Science */}
         <Container>
-          <TouchableWithoutFeedback 
+          <TouchableOpacity 
             onPress={() => navigation.navigate('ComputerScienceDetails')} // Navigate to view all Computer Science topics
           >
             <Text style={styles.viewAllText}>View All Computer Science Topics</Text>
-          </TouchableWithoutFeedback>
+          </TouchableOpacity>
           <Heading style={styles.containerHeading}>Computer Science</Heading>
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             <View style={styles.imageRow}>
               <Image
                 source={require('../assets/data-structures.jpg')}
                 style={styles.image}
-                alt="Data Structures"
+                accessibilityLabel="Data Structures"
               />
               <Image
                 source={require('../assets/operating-systems.jpg')}
                 style={styles.image}
-                alt="Operating Systems"
+                accessibilityLabel="Operating Systems"
               />
               <Image
                 source={require('../assets/computer-networks.jpg')}
                 style={styles.image}
-                alt="Computer Networks"
+                accessibilityLabel="Computer Networks"
               />
               <Image
                 source={require('../assets/database-management.jpg')}
                 style={styles.image}
-                alt="Database Management"
+                accessibilityLabel="Database Management"
               />
               <Image
                 source={require('../assets/data-analysis.jpg')}
                 style={styles.image}
-                alt="Data Analysis"
+                accessibilityLabel="Data Analysis"
               />
               <Image
                 source={require('../assets/software-engineering.jpg')}
                 style={styles.image}
-                alt="Software Engineering"
+                accessibilityLabel="Software Engineering"
               />
             </View>
           </ScrollView>
@@ -137,28 +154,52 @@ const Home: React.FC = () => {
 
         {/* Third Container: Artificial Intelligence */}
         <Container>
+          <TouchableOpacity 
+            onPress={() => navigation.navigate('AI_Courses')} // Navigate to view all AI courses
+          >
+            <Text style={styles.viewAllText}>View All Artificial Intelligence Topics</Text>
+          </TouchableOpacity>
           <Heading style={styles.containerHeading}>Artificial Intelligence</Heading>
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            <View style={styles.imageRow}>
-              <Image
-                source={require('../assets/new.jpg')}
-                style={styles.image}
-                alt="AI"
-              />
-              <Image
-                source={require('../assets/coo.jpg')}
-                style={styles.image}
-                alt="COO"
-              />
-              <Image
-                source={require('../assets/bist.jpg')}
-                style={styles.image}
-                alt="BIST"
-              />
+            <View style={styles.moduleRow}>
+              {/* AI Module 1 */}
+              <View style={styles.moduleContainer}>
+                <Image
+                  source={require('../assets/ai1.jpg')}
+                  style={styles.moduleImage}
+                  accessibilityLabel="Introduction to AI"
+                />
+                <Text style={styles.moduleTitle}>Introduction to AI</Text>
+                <Text style={styles.moduleDescription}>Learn the basics of Artificial Intelligence, including key concepts and applications.</Text>
+                <Text style={styles.modulePrice}>R1299.99</Text>
+              </View>
+              {/* AI Module 2 */}
+              <View style={styles.moduleContainer}>
+                <Image
+                  source={require('../assets/ai2.jpg')}
+                  style={styles.moduleImage}
+                  accessibilityLabel="Machine Learning Basics"
+                />
+                <Text style={styles.moduleTitle}>Machine Learning Basics</Text>
+                <Text style={styles.moduleDescription}>A comprehensive introduction to machine learning techniques and algorithms.</Text>
+                <Text style={styles.modulePrice}>R129.99</Text>
+              </View>
+              {/* AI Module 3 */}
+              <View style={styles.moduleContainer}>
+                <Image
+                  source={require('../assets/ai3.jpg')}
+                  style={styles.moduleImage}
+                  accessibilityLabel="Deep Learning Fundamentals"
+                />
+                <Text style={styles.moduleTitle}>Deep Learning Fundamentals</Text>
+                <Text style={styles.moduleDescription}>Explore deep learning methodologies and their applications in AI.</Text>
+                <Text style={styles.modulePrice}>R149.99</Text>
+              </View>
+              {/* Add more AI modules here */}
             </View>
           </ScrollView>
 
-          <Button title="Show Details" onPress={() => navigation.navigate('Details', { category: 'Example' })} />
+          <Button title="Show Details" onPress={() => navigation.navigate('AI_Courses')} />
         </Container>
       </ScrollView>
 
@@ -206,22 +247,47 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     paddingVertical: 10,
   },
+  moduleRow: {
+    flexDirection: 'row',
+    paddingVertical: 10,
+  },
+  moduleContainer: {
+    width: 220,
+    marginHorizontal: 10,
+    borderRadius: 10,
+    backgroundColor: '#fff',
+    padding: 10,
+    elevation: 2, // Shadow effect for Android
+    shadowColor: '#000', // Shadow color for iOS
+    shadowOffset: { width: 0, height: 2 }, // Shadow offset for iOS
+    shadowOpacity: 0.1, // Shadow opacity for iOS
+    shadowRadius: 4, // Shadow radius for iOS
+  },
+  moduleImage: {
+    width: '100%',
+    height: 120,
+    borderRadius: 10,
+  },
+  moduleTitle: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginVertical: 5,
+  },
+  moduleDescription: {
+    fontSize: 14,
+    color: '#555',
+    marginBottom: 5,
+  },
+  modulePrice: {
+    fontSize: 16,
+    color: '#007bff',
+    fontWeight: 'bold',
+  },
   image: {
     width: 200,
     height: 150,
     marginHorizontal: 10,
     borderRadius: 10,
-  },
-  viewAllButton: {
-    backgroundColor: '#007bff',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 5,
-    alignItems: 'center',
-    marginVertical: 20, // Add vertical margin to avoid cut off
-    marginHorizontal: 10, // Add horizontal margin to prevent clipping
-    alignSelf: 'center', // Center the button horizontally
-    minWidth: 150, // Set a minimum width to ensure visibility
   },
   viewAllText: {
     color: '#007bff',
@@ -231,6 +297,27 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: 'bold', // To make it look like a clickable link
     textDecorationLine: 'underline', // Underline the text to indicate it's clickable
+  },
+  searchBarContainer: {
+    backgroundColor: '#fff',
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ddd',
+    borderTopWidth: 1,
+    borderTopColor: '#ddd',
+    elevation: 2, // Shadow effect for Android
+    shadowColor: '#000', // Shadow color for iOS
+    shadowOffset: { width: 0, height: 2 }, // Shadow offset for iOS
+    shadowOpacity: 0.1, // Shadow opacity for iOS
+    shadowRadius: 4, // Shadow radius for iOS
+  },
+  searchInput: {
+    height: 40,
+    borderColor: '#ddd',
+    borderWidth: 1,
+    borderRadius: 5,
+    paddingHorizontal: 10,
   },
 });
 
