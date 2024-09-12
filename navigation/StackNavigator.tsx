@@ -4,6 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Home from '~/app/index'; // Ensure this path is correct
 import Dashboard from '~/app/Dashboard'; // Ensure this path is correct
 import { RootStackParamList } from '~/navigation/types'; // Adjust the path if needed
+import CourseDetail from '~/app/CourseDetail';
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -13,6 +14,8 @@ const StackNavigator: React.FC = () => {
     <Stack.Navigator initialRouteName="Home">
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="Dashboard" component={Dashboard} />
+      <Stack.Screen name="CourseDetail" component={CourseDetail} />
+      
       {/* Add other screens here if necessary */}
     </Stack.Navigator>
   );

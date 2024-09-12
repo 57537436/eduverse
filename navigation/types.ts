@@ -14,5 +14,8 @@ export type RootStackParamList = {
   Details: { category: string };
   AllProgrammingLanguages: undefined;
   ComputerScienceDetails: undefined;
-  CourseDetails: { course: Course };
+  CourseDetail: { course: Course };
+  AI_Courses: undefined;
+  CourseDetails: {course: any}
+
 };
