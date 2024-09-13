@@ -10,7 +10,6 @@ export type Course = {
 
 export type RootStackParamList = {
   Home: undefined;
-  Dashboard: undefined;
   Details: { category: string };
   AllProgrammingLanguages: undefined;
   ComputerScienceDetails: undefined;

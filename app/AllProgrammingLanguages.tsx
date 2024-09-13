@@ -1,16 +1,19 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, Text, Image, ScrollView, StyleSheet, SafeAreaView, TouchableOpacity } from 'react-native';
-import { Container } from '~/components/Container'; // Assuming you have this component
+import { useNavigation } from '@react-navigation/native';
+import { Container } from '~/components/Container';
 
-// Define interface for course details
 interface Course {
   name: string;
   description: string;
   price: string;
   image: any;
+  lessons?: string[];
+  materials?: string[];
+  youtubeLink?: string;
 }
 
-// Sample courses data
+// Sample course data
 const courses: Course[] = [
   {
     name: 'C Programming',
@@ -36,13 +39,49 @@ const courses: Course[] = [
     price: '$34.99',
     image: require('../assets/cpp-programming.png'),
   },
+  {
+    name: 'React.js',
+    description: 'Build modern web applications using React.js, a popular JavaScript library.',
+    price: '$59.99',
+    image: require('../assets/advanced-react.png'),
+    lessons: ['Introduction to React', 'Components and Props', 'State and Lifecycle', 'Hooks'],
+    materials: ['React Documentation', 'Official React Tutorial'],
+    youtubeLink: 'https://www.youtube.com/watch?v=DLX62G4lc44',
+  },
+  {
+    name: 'JavaScript',
+    description: 'Learn JavaScript, the essential language for web development.',
+    price: '$24.99',
+    image: require('../assets/basic-javascript.jpg'),
+    lessons: ['Basic Syntax', 'DOM Manipulation', 'ES6 Features'],
+    materials: ['MDN Web Docs', 'JavaScript.info'],
+    youtubeLink: 'https://www.youtube.com/watch?v=2qDyw7UMPSs',
+  },
+  {
+    name: 'Laravel',
+    description: 'Master Laravel, a powerful PHP framework for web development.',
+    price: '$54.99',
+    image: require('../assets/java.jpg'),
+    lessons: ['Getting Started with Laravel', 'Routing and Middleware', 'Building a RESTful API'],
+    materials: ['Laravel Documentation', 'Laravel From Scratch'],
+    youtubeLink: 'https://www.youtube.com/watch?v=ImtZ5yY4dL8',
+  },
+  {
+    name: 'HTML',
+    description: 'Get started with HTML, the building block of web development.',
+    price: '$19.99',
+    image: require('../assets/html.jpeg'),
+    lessons: ['HTML Basics', 'Forms and Input Elements', 'Semantic HTML'],
+    materials: ['W3Schools HTML Tutorial', 'HTML5 Rocks'],
+    youtubeLink: 'https://www.youtube.com/watch?v=UB1O30fR-EE',
+  },
 ];
 
 const AllProgrammingLanguages: React.FC = () => {
-  const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
+  const navigation = useNavigation<any>(); // Use correct type here
 
   const handleCourseClick = (course: Course) => {
-    setSelectedCourse(course);
+    navigation.navigate('CourseOverview', { course });
   };
 
   return (
@@ -52,27 +91,16 @@ const AllProgrammingLanguages: React.FC = () => {
           <Text style={styles.heading}>All Programming Languages</Text>
           <View style={styles.imageRow}>
             {courses.map((course, index) => (
-              <TouchableOpacity key={index} onPress={() => handleCourseClick(course)} style={styles.courseContainer}>
-                <Image
-                  source={course.image}
-                  style={styles.image}
-                  alt={course.name}
-                />
+              <TouchableOpacity
+                key={index}
+                onPress={() => handleCourseClick(course)}
+                style={styles.courseContainer}
+              >
+                <Image source={course.image} style={styles.image} />
                 <Text style={styles.imageName}>{course.name}</Text>
               </TouchableOpacity>
             ))}
           </View>
-
-          {selectedCourse && (
-            <View style={styles.detailsContainer}>
-              <Text style={styles.courseName}>{selectedCourse.name}</Text>
-              <Text style={styles.courseDescription}>{selectedCourse.description}</Text>
-              <Text style={styles.coursePrice}>Price: {selectedCourse.price}</Text>
-              <TouchableOpacity style={styles.enrollButton}>
-                <Text style={styles.enrollButtonText}>Enroll in this Course</Text>
-              </TouchableOpacity>
-            </View>
-          )}
         </Container>
       </ScrollView>
     </SafeAreaView>
@@ -112,39 +140,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '500',
     textAlign: 'center',
-  },
-  detailsContainer: {
-    margin: 10,
-    padding: 10,
-    borderRadius: 10,
-    backgroundColor: '#f9f9f9',
-    borderWidth: 1,
-    borderColor: '#ddd',
-  },
-  courseName: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginBottom: 10,
-  },
-  courseDescription: {
-    fontSize: 16,
-    marginBottom: 10,
-  },
-  coursePrice: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 10,
-  },
-  enrollButton: {
-    backgroundColor: '#007bff',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 5,
-    alignItems: 'center',
-  },
-  enrollButtonText: {
-    color: '#fff',
-    fontSize: 16,
   },
 });
 

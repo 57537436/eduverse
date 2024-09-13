@@ -31,7 +31,13 @@ const Home: React.FC = () => {
     <SafeAreaView style={styles.container}>
       <Stack.Screen 
         options={{
-          title: 'Home',
+          headerTitle: () => (
+            <Image 
+              source={require('../assets/nu.jpg')} // Update path to your logo image
+              style={styles.logo}
+              resizeMode="contain"
+            />
+          ),
           headerRight: () => <HeaderButtons />, // Set custom header component
         }} 
       />
@@ -48,118 +54,171 @@ const Home: React.FC = () => {
       )}
 
       <ScrollView showsVerticalScrollIndicator={true} contentContainerStyle={styles.scrollView}>
-        {/* Button to Navigate to Dashboard */}
-        <TouchableOpacity 
-          style={styles.button} 
-          onPress={() => navigation.navigate('Dashboard')} // Navigate to Dashboard
-        >
-          <Text style={styles.buttonText}>Go to Dashboard</Text>
-        </TouchableOpacity>
-
-        <Heading style={styles.heading}>Courses</Heading>
-        <Text style={styles.subheading}>What do you wanna learn?</Text>
-
-        {/* First Container: Programming Languages */}
+        {/* Section: Programming Languages */}
         <Container>
-          <TouchableOpacity 
-            onPress={() => navigation.navigate('AllProgrammingLanguages')} // Navigate to view all programming languages
-          >
-            <Text style={styles.viewAllText}>View All Programming Languages</Text>
-          </TouchableOpacity>
-          <Heading style={styles.containerHeading}>Programming</Heading>
+          <View style={styles.sectionHeader}>
+            <Heading style={styles.containerHeading}>Programming</Heading>
+            <TouchableOpacity 
+              onPress={() => navigation.navigate('AllProgrammingLanguages')} // Navigate to view all programming languages
+            >
+              <Text style={styles.viewAllText}>View All</Text>
+            </TouchableOpacity>
+          </View>
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            <View style={styles.imageRow}>
-              <Image
-                source={require('../assets/php.jpg')}
-                style={styles.image}
-                accessibilityLabel="PHP"
-              />
-              <Image
-                source={require('../assets/coo.jpg')}
-                style={styles.image}
-                accessibilityLabel="COO"
-              />
-              <Image
-                source={require('../assets/java.jpg')}
-                style={styles.image}
-                accessibilityLabel="Java"
-              />
-              <Image
-                source={require('../assets/c-programming.png')}
-                style={styles.image}
-                accessibilityLabel="C Programming"
-              />
-              <Image
-                source={require('../assets/java-programming.jpg')}
-                style={styles.image}
-                accessibilityLabel="Java Programming"
-              />
-              <Image
-                source={require('../assets/python-programming.jpg')}
-                style={styles.image}
-                accessibilityLabel="Python Programming"
-              />
-              <Image
-                source={require('../assets/cpp-programming.png')}
-                style={styles.image}
-                accessibilityLabel="C++ Programming"
-              />
+            <View style={styles.moduleRow}>
+              {/* Programming Modules */}
+              <View style={styles.moduleContainer}>
+                <Image
+                  source={require('../assets/php.jpg')}
+                  style={styles.moduleImage}
+                  accessibilityLabel="PHP"
+                />
+                <Text style={styles.moduleTitle}>PHP</Text>
+                <Text style={styles.moduleDescription}>Server-side scripting language.</Text>
+              </View>
+              <View style={styles.moduleContainer}>
+                <Image
+                  source={require('../assets/coo.jpg')}
+                  style={styles.moduleImage}
+                  accessibilityLabel="COO"
+                />
+                <Text style={styles.moduleTitle}>COO</Text>
+                <Text style={styles.moduleDescription}>Object-oriented programming language.</Text>
+              </View>
+              <View style={styles.moduleContainer}>
+                <Image
+                  source={require('../assets/java.jpg')}
+                  style={styles.moduleImage}
+                  accessibilityLabel="Java"
+                />
+                <Text style={styles.moduleTitle}>Java</Text>
+                <Text style={styles.moduleDescription}>High-level, class-based programming language.</Text>
+              </View>
+              {/* Additional Programming Modules */}
+              <View style={styles.moduleContainer}>
+                <Image
+                  source={require('../assets/c-programming.png')}
+                  style={styles.moduleImage}
+                  accessibilityLabel="C Programming"
+                />
+                <Text style={styles.moduleTitle}>C Programming</Text>
+                <Text style={styles.moduleDescription}>Procedural programming language.</Text>
+              </View>
+              <View style={styles.moduleContainer}>
+                <Image
+                  source={require('../assets/java-programming.jpg')}
+                  style={styles.moduleImage}
+                  accessibilityLabel="Java Programming"
+                />
+                <Text style={styles.moduleTitle}>Java Programming</Text>
+                <Text style={styles.moduleDescription}>Advanced concepts of Java.</Text>
+              </View>
+              <View style={styles.moduleContainer}>
+                <Image
+                  source={require('../assets/python-programming.jpg')}
+                  style={styles.moduleImage}
+                  accessibilityLabel="Python Programming"
+                />
+                <Text style={styles.moduleTitle}>Python Programming</Text>
+                <Text style={styles.moduleDescription}>Versatile programming language for web development and data analysis.</Text>
+              </View>
+              <View style={styles.moduleContainer}>
+                <Image
+                  source={require('../assets/cpp-programming.png')}
+                  style={styles.moduleImage}
+                  accessibilityLabel="C++ Programming"
+                />
+                <Text style={styles.moduleTitle}>C++ Programming</Text>
+                <Text style={styles.moduleDescription}>Language supporting object-oriented, generic, and functional programming.</Text>
+              </View>
             </View>
           </ScrollView>
         </Container>
 
-        {/* Second Container: Computer Science */}
+        {/* Section: Computer Science */}
         <Container>
-          <TouchableOpacity 
-            onPress={() => navigation.navigate('ComputerScienceDetails')} // Navigate to view all Computer Science topics
-          >
-            <Text style={styles.viewAllText}>View All Computer Science Topics</Text>
-          </TouchableOpacity>
-          <Heading style={styles.containerHeading}>Computer Science</Heading>
+          <View style={styles.sectionHeader}>
+            <Heading style={styles.containerHeading}>Computer Science</Heading>
+            <TouchableOpacity 
+              onPress={() => navigation.navigate('ComputerScienceDetails')} // Navigate to view all Computer Science topics
+            >
+              <Text style={styles.viewAllText}>View All</Text>
+            </TouchableOpacity>
+          </View>
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            <View style={styles.imageRow}>
-              <Image
-                source={require('../assets/data-structures.jpg')}
-                style={styles.image}
-                accessibilityLabel="Data Structures"
-              />
-              <Image
-                source={require('../assets/operating-systems.jpg')}
-                style={styles.image}
-                accessibilityLabel="Operating Systems"
-              />
-              <Image
-                source={require('../assets/computer-networks.jpg')}
-                style={styles.image}
-                accessibilityLabel="Computer Networks"
-              />
-              <Image
-                source={require('../assets/database-management.jpg')}
-                style={styles.image}
-                accessibilityLabel="Database Management"
-              />
-              <Image
-                source={require('../assets/data-analysis.jpg')}
-                style={styles.image}
-                accessibilityLabel="Data Analysis"
-              />
-              <Image
-                source={require('../assets/software-engineering.jpg')}
-                style={styles.image}
-                accessibilityLabel="Software Engineering"
-              />
+            <View style={styles.moduleRow}>
+              {/* Computer Science Module 1 */}
+              <View style={styles.moduleContainer}>
+                <Image
+                  source={require('../assets/data-structures.jpg')}
+                  style={styles.moduleImage}
+                  accessibilityLabel="Data Structures"
+                />
+                <Text style={styles.moduleTitle}>Data Structures</Text>
+                <Text style={styles.moduleDescription}>Study of data organization and manipulation.</Text>
+              </View>
+              {/* Computer Science Module 2 */}
+              <View style={styles.moduleContainer}>
+                <Image
+                  source={require('../assets/operating-systems.jpg')}
+                  style={styles.moduleImage}
+                  accessibilityLabel="Operating Systems"
+                />
+                <Text style={styles.moduleTitle}>Operating Systems</Text>
+                <Text style={styles.moduleDescription}>Fundamentals of operating system design and implementation.</Text>
+              </View>
+              {/* Computer Science Module 3 */}
+              <View style={styles.moduleContainer}>
+                <Image
+                  source={require('../assets/computer-networks.jpg')}
+                  style={styles.moduleImage}
+                  accessibilityLabel="Computer Networks"
+                />
+                <Text style={styles.moduleTitle}>Computer Networks</Text>
+                <Text style={styles.moduleDescription}>Introduction to network protocols and architecture.</Text>
+              </View>
+              {/* Additional Computer Science Modules */}
+              <View style={styles.moduleContainer}>
+                <Image
+                  source={require('../assets/database-management.jpg')}
+                  style={styles.moduleImage}
+                  accessibilityLabel="Database Management"
+                />
+                <Text style={styles.moduleTitle}>Database Management</Text>
+                <Text style={styles.moduleDescription}>Design and management of databases.</Text>
+              </View>
+              <View style={styles.moduleContainer}>
+                <Image
+                  source={require('../assets/data-analysis.jpg')}
+                  style={styles.moduleImage}
+                  accessibilityLabel="Data Analysis"
+                />
+                <Text style={styles.moduleTitle}>Data Analysis</Text>
+                <Text style={styles.moduleDescription}>Techniques and tools for analyzing data.</Text>
+              </View>
+              <View style={styles.moduleContainer}>
+                <Image
+                  source={require('../assets/software-engineering.jpg')}
+                  style={styles.moduleImage}
+                  accessibilityLabel="Software Engineering"
+                />
+                <Text style={styles.moduleTitle}>Software Engineering</Text>
+                <Text style={styles.moduleDescription}>Principles and practices of software development.</Text>
+              </View>
             </View>
           </ScrollView>
         </Container>
 
-        {/* Third Container: Artificial Intelligence */}
+        {/* Section: Artificial Intelligence */}
         <Container>
-          <TouchableOpacity 
-            onPress={() => navigation.navigate('AI_Courses')} // Navigate to view all AI courses
-          >
-            <Text style={styles.viewAllText}>View All Artificial Intelligence Topics</Text>
-          </TouchableOpacity>
-          <Heading style={styles.containerHeading}>Artificial Intelligence</Heading>
+          <View style={styles.sectionHeader}>
+            <Heading style={styles.containerHeading}>Artificial Intelligence</Heading>
+            <TouchableOpacity 
+              onPress={() => navigation.navigate('AI_Courses')} // Navigate to view all AI courses
+            >
+              <Text style={styles.viewAllText}>View All</Text>
+            </TouchableOpacity>
+          </View>
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             <View style={styles.moduleRow}>
               {/* AI Module 1 */}
@@ -177,7 +236,7 @@ const Home: React.FC = () => {
               <View style={styles.moduleContainer}>
                 <Image
                   source={require('../assets/ai2.jpg')}
-                  style={styles.moduleImage}
+                  style={styles.moduleImage} 
                   accessibilityLabel="Machine Learning Basics"
                 />
                 <Text style={styles.moduleTitle}>Machine Learning Basics</Text>
@@ -233,19 +292,17 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     marginHorizontal: 10,
   },
-  subheading: {
-    marginHorizontal: 10,
-    fontSize: 16,
-    marginBottom: 10,
-  },
   containerHeading: {
-    marginHorizontal: 10,
+    marginHorizontal: 5,
     fontSize: 20,
     fontWeight: '400',
   },
-  imageRow: {
+  sectionHeader: {
     flexDirection: 'row',
-    paddingVertical: 10,
+    justifyContent: 'space-between', // Pushes items to the edges
+    alignItems: 'center',
+    marginHorizontal: 10,
+    marginVertical: -25,
   },
   moduleRow: {
     flexDirection: 'row',
@@ -292,9 +349,7 @@ const styles = StyleSheet.create({
   viewAllText: {
     color: '#007bff',
     fontSize: 16,
-    marginVertical: 10,
-    marginHorizontal: 10,
-    textAlign: 'center',
+    textAlign: 'right',
     fontWeight: 'bold', // To make it look like a clickable link
     textDecorationLine: 'underline', // Underline the text to indicate it's clickable
   },
@@ -318,6 +373,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 5,
     paddingHorizontal: 10,
+  },
+  logo: {
+    width: 100, // Adjusted size
+    height: 30, // Adjusted size
   },
 });
 

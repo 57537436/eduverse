@@ -35,13 +35,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     marginHorizontal: 5,
     borderRadius: 5,
-    borderWidth: 1,
-    borderColor: '#007bff', // Border color matching the button color
+    borderWidth: 0, // Remove border
+    borderColor: 'transparent', // Set border color to transparent
     backgroundColor: '#fff', // White background for buttons
     alignItems: 'center',
   },
   buttonText: {
-    color: '#007bff', // Button text color matching the border
+    color: '#007bff', // Button text color matching the previous border color
     fontSize: 16,
     fontWeight: 'bold',
   },

@@ -9,6 +9,7 @@ import ComputerScienceDetails from '~/app/ComputerScienceDetails';
 import CourseDetail from '~/app/CourseDetail';
 import CourseDetails from '~/app/CourseDetails';
 import AI_Courses from '~/app/AI_Courses';
+import CourseOverview from '~/app/CourseOverview';
 
 
 const Stack = createStackNavigator();
@@ -24,6 +25,7 @@ const RootStackNavigator: React.FC = () => (
     <Stack.Screen name="CourseDetail" component={CourseDetail} />
     <Stack.Screen name="AI_Courses" component={AI_Courses} />
     <Stack.Screen name="CourseDetails" component={CourseDetails} />
+    <Stack.Screen name="CourseOverview" component={CourseOverview} />
   </Stack.Navigator>
 );
 
