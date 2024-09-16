@@ -12,7 +12,7 @@ const Footer: React.FC<FooterProps> = ({ onSearchPress }) => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
   const handleHomeClick = () => {
-    navigation.navigate('');
+    navigation.navigate('Home');
   };
 
   const handleProfileClick = () => {
