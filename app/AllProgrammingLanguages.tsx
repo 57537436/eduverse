@@ -1,7 +1,6 @@
 import React from 'react';
-import { View, Text, Image, ScrollView, StyleSheet, SafeAreaView, TouchableOpacity } from 'react-native';
+import { View, Text, Image, FlatList, StyleSheet, SafeAreaView, TouchableOpacity, Dimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { Container } from '~/components/Container';
 
 interface Course {
   name: string;
@@ -13,31 +12,44 @@ interface Course {
   youtubeLink?: string;
 }
 
-// Sample course data
+const { width } = Dimensions.get('window');
+
 const courses: Course[] = [
   {
     name: 'C Programming',
     description: 'Learn the basics of C programming, a foundational language for computer science.',
     price: '$29.99',
     image: require('../assets/c-programming.png'),
+    lessons: ['Introduction to C', 'Variables and Data Types', 'Control Structures', 'Functions', 'Pointers'],
+    materials: ['C Programming Book', 'C Reference Manual'],
+    youtubeLink: 'https://www.youtube.com/watch?v=KJgsSFOSQv0',
   },
   {
     name: 'Java Programming',
     description: 'Master Java programming with this comprehensive course, suitable for all levels.',
     price: '$39.99',
     image: require('../assets/java-programming.jpg'),
+    lessons: ['Java Basics', 'OOP Concepts', 'Collections Framework', 'Exception Handling', 'Multithreading'],
+    materials: ['Java Documentation', 'Effective Java Book'],
+    youtubeLink: 'https://www.youtube.com/watch?v=grEKMHGYyns',
   },
   {
     name: 'Python Programming',
     description: 'Explore Python programming, from fundamentals to advanced topics.',
     price: '$49.99',
     image: require('../assets/python-programming.jpg'),
+    lessons: ['Python Basics', 'Data Structures', 'File Handling', 'Modules and Packages', 'Advanced Topics'],
+    materials: ['Python Documentation', 'Automate the Boring Stuff with Python'],
+    youtubeLink: 'https://www.youtube.com/watch?v=rfscVS0vtbw',
   },
   {
     name: 'C++ Programming',
     description: 'Understand C++ programming concepts with practical examples and exercises.',
     price: '$34.99',
     image: require('../assets/cpp-programming.png'),
+    lessons: ['Introduction to C++', 'Object-Oriented Programming', 'Templates', 'STL', 'File Handling'],
+    materials: ['C++ Primer', 'The C++ Programming Language'],
+    youtubeLink: 'https://www.youtube.com/watch?v=vLnPwxZdW4Y',
   },
   {
     name: 'React.js',
@@ -84,25 +96,30 @@ const AllProgrammingLanguages: React.FC = () => {
     navigation.navigate('CourseOverview', { course });
   };
 
+  const renderItem = ({ item }: { item: Course }) => (
+    <TouchableOpacity style={styles.itemContainer} onPress={() => handleCourseClick(item)}>
+      <Image source={item.image} style={styles.image} />
+      <Text style={styles.itemTitle}>{item.name}</Text>
+      <Text style={styles.itemDescription}>{item.description}</Text>
+      <Text style={styles.itemPrice}>{item.price}</Text>
+      <TouchableOpacity style={styles.enrollButton}>
+        <Text style={styles.enrollButtonText}>View Details</Text>
+      </TouchableOpacity>
+    </TouchableOpacity>
+  );
+
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView contentContainerStyle={styles.scrollView}>
-        <Container>
-          <Text style={styles.heading}>All Programming Languages</Text>
-          <View style={styles.imageRow}>
-            {courses.map((course, index) => (
-              <TouchableOpacity
-                key={index}
-                onPress={() => handleCourseClick(course)}
-                style={styles.courseContainer}
-              >
-                <Image source={course.image} style={styles.image} />
-                <Text style={styles.imageName}>{course.name}</Text>
-              </TouchableOpacity>
-            ))}
-          </View>
-        </Container>
-      </ScrollView>
+      <View style={styles.content}>
+        <Text style={styles.heading}>All Programming Languages</Text>
+        <FlatList
+          data={courses}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.name}
+          numColumns={2}
+          columnWrapperStyle={styles.grid}
+        />
+      </View>
     </SafeAreaView>
   );
 };
@@ -110,36 +127,65 @@ const AllProgrammingLanguages: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#f9f9f9',
   },
-  scrollView: {
-    paddingVertical: 10,
-    paddingBottom: 60, // Ensure content doesn't overlap with Footer
+  content: {
+    flex: 1,
+    paddingBottom: 60,
   },
   heading: {
     fontSize: 24,
     fontWeight: 'bold',
     marginHorizontal: 10,
     marginVertical: 20,
+    color: '#333',
   },
-  imageRow: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
+  grid: {
     justifyContent: 'space-around',
   },
-  courseContainer: {
-    alignItems: 'center',
+  itemContainer: {
+    flex: 1,
     margin: 10,
+    borderRadius: 10,
+    overflow: 'hidden',
+    backgroundColor: '#fff',
+    padding: 10,
+    elevation: 2,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    maxWidth: (width / 2) - 20,
   },
   image: {
-    width: 150,
+    width: '100%',
     height: 100,
     borderRadius: 10,
   },
-  imageName: {
-    marginTop: 5,
+  itemTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginVertical: 10,
+  },
+  itemDescription: {
+    fontSize: 14,
+    color: '#666',
+  },
+  itemPrice: {
     fontSize: 16,
-    fontWeight: '500',
-    textAlign: 'center',
+    color: '#007bff',
+    marginTop: 10,
+  },
+  enrollButton: {
+    backgroundColor: '#007bff',
+    paddingVertical: 10,
+    borderRadius: 5,
+    marginTop: 10,
+    alignItems: 'center',
+  },
+  enrollButtonText: {
+    color: '#fff',
+    fontSize: 16,
   },
 });
 

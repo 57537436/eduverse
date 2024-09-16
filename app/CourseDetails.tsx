@@ -1,32 +1,84 @@
 import React from 'react';
-import { SafeAreaView, ScrollView, StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
-import { Heading } from '@gluestack-ui/themed';
+import { View, Text, Image, StyleSheet, FlatList, TouchableOpacity, Linking, SafeAreaView } from 'react-native';
 import { RouteProp, useRoute } from '@react-navigation/native';
-import { RootStackParamList } from '../navigation/types'; // Import the types
+import { Heading } from '@gluestack-ui/themed'; // Ensure that Heading is being used appropriately
+
+// Define Course type
+interface Course {
+  name: string;
+  description: string;
+  price: string;
+  image: any;
+  lessons?: string[];
+  materials?: string[];
+  youtubeLink?: string;
+}
+
+// Define RootStackParamList type
+type RootStackParamList = {
+  CourseDetail: { course: Course };
+};
 
 // Define route prop type
-type RoutePropType = RouteProp<RootStackParamList, 'CourseDetails'>;
+type CourseDetailRouteProp = RouteProp<RootStackParamList, 'CourseDetail'>;
 
 const CourseDetails: React.FC = () => {
-  const route = useRoute<RoutePropType>();
+  const route = useRoute<CourseDetailRouteProp>();
   const { course } = route.params;
+
+  const handleWatchVideo = () => {
+    if (course.youtubeLink) {
+      Linking.openURL(course.youtubeLink);
+    } else {
+      console.warn('No video link available.');
+    }
+  };
+
+  const renderItem = ({ item }: { item: string }) => (
+    <View style={styles.itemContainer}>
+      <Text style={styles.sectionItem}>{item}</Text>
+    </View>
+  );
+
+  const renderSection = ({ title, data }: { title: string; data: string[] }) => (
+    <View style={styles.section}>
+      <Text style={styles.sectionHeading}>{title}</Text>
+      <FlatList
+        data={data}
+        renderItem={renderItem}
+        keyExtractor={(item, index) => index.toString()}
+      />
+    </View>
+  );
+
+  const sections = [
+    { title: 'Lessons', data: course.lessons || [] },
+    { title: 'Materials', data: course.materials || [] },
+  ];
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView contentContainerStyle={styles.scrollView}>
-        <Image source={course.image} style={styles.courseImage} accessibilityLabel={course.title} />
-        <View style={styles.courseInfo}>
-          <Heading style={styles.courseTitle}>{course.title}</Heading>
-          <Text style={styles.courseDescription}>{course.description}</Text>
-          <Text style={styles.coursePrice}>{course.price}</Text>
-          <TouchableOpacity 
-            style={styles.enrollButton}
-            onPress={() => { /* Add enrollment logic here */ }}
-          >
-            <Text style={styles.enrollButtonText}>Enroll Now</Text>
-          </TouchableOpacity>
-        </View>
-      </ScrollView>
+      <View style={styles.header}>
+        <Image source={course.image} style={styles.courseImage} />
+        <Heading style={styles.courseName}>{course.name}</Heading>
+        <Text style={styles.coursePrice}>{course.price}</Text>
+      </View>
+
+      <Text style={styles.courseDescription}>{course.description}</Text>
+
+      <FlatList
+        data={sections}
+        renderItem={({ item }) => renderSection(item)}
+        keyExtractor={(item) => item.title}
+        ListHeaderComponent={<Text style={styles.mainHeading}>Course Details</Text>}
+        ListFooterComponent={
+          course.youtubeLink ? (
+            <TouchableOpacity style={styles.button} onPress={handleWatchVideo}>
+              <Text style={styles.buttonText}>Watch Video Tutorial</Text>
+            </TouchableOpacity>
+          ) : null
+        }
+      />
     </SafeAreaView>
   );
 };
@@ -34,42 +86,78 @@ const CourseDetails: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    padding: 15,
+    backgroundColor: '#f9f9f9',
   },
-  scrollView: {
-    padding: 10,
+  header: {
+    alignItems: 'center',
+    marginBottom: 20,
   },
   courseImage: {
     width: '100%',
     height: 200,
     borderRadius: 10,
+    marginBottom: 10,
   },
-  courseInfo: {
-    marginTop: 10,
-  },
-  courseTitle: {
-    fontSize: 24,
+  courseName: {
+    fontSize: 28,
     fontWeight: 'bold',
+    textAlign: 'center',
+    marginBottom: 5,
+  },
+  coursePrice: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#007bff',
+    marginBottom: 15,
   },
   courseDescription: {
     fontSize: 16,
-    color: '#555',
-    marginVertical: 10,
+    marginBottom: 20,
+    textAlign: 'center',
   },
-  coursePrice: {
+  section: {
+    marginBottom: 20,
+  },
+  sectionHeading: {
     fontSize: 20,
-    color: '#007bff',
     fontWeight: 'bold',
+    marginBottom: 10,
+    borderBottomWidth: 2,
+    borderBottomColor: '#007bff',
+    paddingBottom: 5,
   },
-  enrollButton: {
-    marginTop: 20,
+  itemContainer: {
+    backgroundColor: '#fff',
+    borderRadius: 8,
+    padding: 10,
+    marginBottom: 5,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
+    elevation: 2,
+  },
+  sectionItem: {
+    fontSize: 16,
+  },
+  button: {
     backgroundColor: '#007bff',
-    paddingVertical: 15,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
     borderRadius: 5,
     alignItems: 'center',
+    marginVertical: 20,
   },
-  enrollButtonText: {
+  buttonText: {
     color: '#fff',
     fontSize: 16,
+  },
+  mainHeading: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginVertical: 10,
+    textAlign: 'center',
   },
 });
 
