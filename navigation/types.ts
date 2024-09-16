@@ -18,5 +18,6 @@ export type RootStackParamList = {
   CourseDetails: {course: any}
   SignUpScreen: undefined;
   Profile: undefined;
-
+  SearchBar: undefined;
+  index: undefined;
 };
