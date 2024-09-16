@@ -1,59 +1,100 @@
-import React from 'react';
-import { SafeAreaView, ScrollView, StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
-import { Heading } from '@gluestack-ui/themed';
+import React, { useState } from 'react';
+import { View, Text, Image, StyleSheet, SafeAreaView, TouchableOpacity, TextInput, FlatList, Dimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { RootStackParamList } from '../navigation/types'; // Import the types
+import { RootStackParamList } from '../navigation/types';
+
+const { width } = Dimensions.get('window');
 
 // Define navigation prop type
 type NavigationProp = StackNavigationProp<RootStackParamList, 'AI_Courses'>;
 
 const AI_Courses: React.FC = () => {
-  const navigation = useNavigation<NavigationProp>(); // Use the typed navigation
+  const navigation = useNavigation<NavigationProp>();
+  const [searchQuery, setSearchQuery] = useState('');
+  const [isSearchVisible, setSearchVisible] = useState(false);
 
+  // Define courses data
   const courses = [
     {
-      title: 'Introduction to AI',
+      id: '1',
+      name: 'Introduction to AI',
       description: 'Learn the basics of Artificial Intelligence, including key concepts and applications.',
+      image: require('../assets/ai1.jpg'),
       price: '$99.99',
-      image: require('../assets/ai1.jpg')
+      lessons: ['Lesson 1', 'Lesson 2'],
+      materials: ['Material 1', 'Material 2'],
+      youtubeLink: 'https://example.com/video',
     },
     {
-      title: 'Machine Learning Basics',
+      id: '2',
+      name: 'Machine Learning Basics',
       description: 'A comprehensive introduction to machine learning techniques and algorithms.',
+      image: require('../assets/ai2.jpg'),
       price: '$129.99',
-      image: require('../assets/ai2.jpg')
+      lessons: ['Lesson 1', 'Lesson 2'],
+      materials: ['Material 1', 'Material 2'],
+      youtubeLink: 'https://example.com/video',
     },
     {
-      title: 'Deep Learning Fundamentals',
+      id: '3',
+      name: 'Deep Learning Fundamentals',
       description: 'Explore deep learning methodologies and their applications in AI.',
+      image: require('../assets/ai3.jpg'),
       price: '$149.99',
-      image: require('../assets/ai3.jpg')
+      lessons: ['Lesson 1', 'Lesson 2'],
+      materials: ['Material 1', 'Material 2'],
+      youtubeLink: 'https://example.com/video',
     },
-    // Add more courses here
   ];
+
+  // Filter courses based on search query
+  const filteredCourses = courses.filter(course =>
+    course.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  // Handle search toggle
+  const handleSearchPress = () => {
+    setSearchVisible(!isSearchVisible);
+  };
+
+  // Navigate to course details
+  const handleCoursePress = (course: typeof courses[0]) => {
+    navigation.navigate('CourseDetails', { course });
+  };
+
+  const renderItem = ({ item }: { item: typeof courses[0] }) => (
+    <TouchableOpacity style={styles.itemContainer} onPress={() => handleCoursePress(item)}>
+      <Image source={item.image} style={styles.image} />
+      <Text style={styles.itemTitle}>{item.name}</Text>
+      <Text style={styles.itemDescription}>{item.description}</Text>
+      <Text style={styles.itemPrice}>{item.price}</Text>
+      <TouchableOpacity style={styles.enrollButton}>
+        <Text style={styles.enrollButtonText}>View Details</Text>
+      </TouchableOpacity>
+    </TouchableOpacity>
+  );
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView contentContainerStyle={styles.scrollView}>
-        <Heading style={styles.heading}>Artificial Intelligence Courses</Heading>
-        {courses.map((course, index) => (
-          <View key={index} style={styles.courseContainer}>
-            <Image source={course.image} style={styles.courseImage} accessibilityLabel={course.title} />
-            <View style={styles.courseInfo}>
-              <Text style={styles.courseTitle}>{course.title}</Text>
-              <Text style={styles.courseDescription}>{course.description}</Text>
-              <Text style={styles.coursePrice}>{course.price}</Text>
-              <TouchableOpacity 
-                style={styles.enrollButton}
-                onPress={() => navigation.navigate('CourseDetails', { course })}
-              >
-                <Text style={styles.enrollButtonText}>View Details</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        ))}
-      </ScrollView>
+      <View style={styles.content}>
+        {isSearchVisible && (
+          <TextInput
+            style={styles.searchInput}
+            placeholder="Search courses..."
+            value={searchQuery}
+            onChangeText={setSearchQuery}
+          />
+        )}
+        <Text style={styles.heading}>Artificial Intelligence Courses</Text>
+        <FlatList
+          data={filteredCourses}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.id}
+          numColumns={2}
+          columnWrapperStyle={styles.grid}
+        />
+      </View>
     </SafeAreaView>
   );
 };
@@ -61,55 +102,73 @@ const AI_Courses: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#f9f9f9',
   },
-  scrollView: {
-    paddingVertical: 10,
+  content: {
+    flex: 1,
+    paddingBottom: 60,
   },
   heading: {
-    fontSize: 28,
-    fontWeight: '500',
+    fontSize: 24,
+    fontWeight: 'bold',
     marginHorizontal: 10,
-    marginBottom: 10,
+    marginVertical: 20,
+    color: '#333',
   },
-  courseContainer: {
-    flexDirection: 'row',
+  searchInput: {
+    marginHorizontal: 10,
+    padding: 10,
+    borderWidth: 1,
+    borderColor: '#ddd',
+    borderRadius: 5,
     marginBottom: 20,
-    paddingHorizontal: 10,
   },
-  courseImage: {
-    width: 120,
-    height: 90,
-    borderRadius: 10,
-    marginRight: 15,
-  },
-  courseInfo: {
+  itemContainer: {
     flex: 1,
-    justifyContent: 'center',
+    margin: 10,
+    borderRadius: 10,
+    overflow: 'hidden',
+    backgroundColor: '#fff',
+    padding: 10,
+    elevation: 2,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    maxWidth: (width / 2) - 20,
   },
-  courseTitle: {
+  image: {
+    width: '100%',
+    height: 100,
+    borderRadius: 10,
+  },
+  itemTitle: {
     fontSize: 18,
     fontWeight: 'bold',
+    marginVertical: 10,
   },
-  courseDescription: {
+  itemDescription: {
     fontSize: 14,
-    color: '#555',
-    marginVertical: 5,
+    color: '#666',
   },
-  coursePrice: {
+  itemPrice: {
     fontSize: 16,
     color: '#007bff',
-    fontWeight: 'bold',
+    marginTop: 10,
   },
   enrollButton: {
-    marginTop: 10,
     backgroundColor: '#007bff',
     paddingVertical: 10,
     borderRadius: 5,
+    marginTop: 10,
     alignItems: 'center',
   },
   enrollButtonText: {
     color: '#fff',
-    fontSize: 14,
+    fontSize: 16,
+  },
+  grid: {
+    justifyContent: 'space-around',
   },
 });
 
