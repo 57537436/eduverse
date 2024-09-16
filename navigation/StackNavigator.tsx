@@ -13,7 +13,7 @@ const StackNavigator: React.FC = () => {
     <Stack.Navigator initialRouteName="Home">
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="CourseDetail" component={CourseDetail} />
-      <Stack.Screen name="CourseOverview" component={CourseOverview} />
+      
       {/* Add other screens here if necessary */}
     </Stack.Navigator>
   );
