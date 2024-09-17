@@ -3,6 +3,7 @@ import { View, Text, Image, StyleSheet, SafeAreaView, TouchableOpacity, TextInpu
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../navigation/types';
+import Footer from './Footer'; // Adjust the import path as needed
 
 const { width } = Dimensions.get('window');
 
@@ -21,7 +22,7 @@ const AI_Courses: React.FC = () => {
       name: 'Introduction to AI',
       description: 'Learn the basics of Artificial Intelligence, including key concepts and applications.',
       image: require('../assets/ai1.jpg'),
-      price: '$99.99',
+      price: 'R500.99',
       lessons: ['Lesson 1', 'Lesson 2'],
       materials: ['Material 1', 'Material 2'],
       youtubeLink: 'https://example.com/video',
@@ -31,7 +32,7 @@ const AI_Courses: React.FC = () => {
       name: 'Machine Learning Basics',
       description: 'A comprehensive introduction to machine learning techniques and algorithms.',
       image: require('../assets/ai2.jpg'),
-      price: '$129.99',
+      price: 'R1500.99',
       lessons: ['Lesson 1', 'Lesson 2'],
       materials: ['Material 1', 'Material 2'],
       youtubeLink: 'https://example.com/video',
@@ -41,7 +42,7 @@ const AI_Courses: React.FC = () => {
       name: 'Deep Learning Fundamentals',
       description: 'Explore deep learning methodologies and their applications in AI.',
       image: require('../assets/ai3.jpg'),
-      price: '$149.99',
+      price: 'R2000.99',
       lessons: ['Lesson 1', 'Lesson 2'],
       materials: ['Material 1', 'Material 2'],
       youtubeLink: 'https://example.com/video',
@@ -56,6 +57,10 @@ const AI_Courses: React.FC = () => {
   // Handle search toggle
   const handleSearchPress = () => {
     setSearchVisible(!isSearchVisible);
+    if (isSearchVisible) {
+      // Hide search bar and reset search query
+      setSearchQuery('');
+    }
   };
 
   // Navigate to course details
@@ -95,6 +100,7 @@ const AI_Courses: React.FC = () => {
           columnWrapperStyle={styles.grid}
         />
       </View>
+      <Footer onSearchPress={handleSearchPress} />
     </SafeAreaView>
   );
 };
@@ -106,7 +112,7 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
-    paddingBottom: 60,
+    paddingBottom: 60, // Ensure space for the footer
   },
   heading: {
     fontSize: 24,

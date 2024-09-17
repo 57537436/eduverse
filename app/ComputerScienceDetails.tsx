@@ -1,93 +1,107 @@
-// app/ComputerScienceDetails.tsx
 import React, { useState } from 'react';
-import { View, Text, Image, StyleSheet, SafeAreaView, TouchableOpacity, TextInput, FlatList, Dimensions } from 'react-native';
+import { View, Text, Image, FlatList, StyleSheet, SafeAreaView, TouchableOpacity, Dimensions, TextInput } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { RootStackParamList } from '../navigation/types';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { Course } from '../navigation/types';
+import Footer from './Footer'; // Adjust the import path as needed
+
+interface Course {
+  id: string;
+  name: string;
+  description: string;
+  price: string;
+  image: any;
+  lessons?: string[];
+  materials?: string[];
+  youtubeLink?: string;
+}
 
 const { width } = Dimensions.get('window');
 
-type NavigationProp = StackNavigationProp<RootStackParamList, 'ComputerScienceDetails'>;
+const courses: Course[] = [
+  { 
+    id: '1', 
+    name: 'Data Structures', 
+    description: 'Learn about different data structures and their applications.', 
+    price: 'R2200', 
+    image: require('../assets/data-structures.jpg'), 
+    lessons: ['Introduction', 'Arrays', 'Linked Lists'], 
+    materials: ['Data Structures Book'], 
+    youtubeLink: 'https://www.youtube.com/watch?v=KJgsSFOSQv0' 
+  },
+  { 
+    id: '2', 
+    name: 'Operating Systems', 
+    description: 'Explore the fundamentals of operating systems.', 
+    price: 'R1300', 
+    image: require('../assets/operating-systems.jpg'), 
+    lessons: ['Basics of OS', 'Processes', 'Memory Management'], 
+    materials: ['Operating Systems Book'], 
+    youtubeLink: 'https://www.youtube.com/watch?v=1234567890' 
+  },
+  { 
+    id: '3', 
+    name: 'Computer Networks', 
+    description: 'Understand the basics of computer networks.', 
+    price: 'R2190', 
+    image: require('../assets/computer-networks.jpg'), 
+    lessons: ['Network Fundamentals', 'OSI Model', 'TCP/IP', 'Network Security'], 
+    materials: ['Networking Essentials Book'], 
+    youtubeLink: 'https://www.youtube.com/watch?v=9bZkp7q19f0' 
+  },
+  { 
+    id: '4', 
+    name: 'Database Management', 
+    description: 'Learn about database management systems and their use.', 
+    price: 'R1500', 
+    image: require('../assets/database-management.jpg'), 
+    lessons: ['Database Concepts', 'SQL Basics', 'Normalization', 'Transactions'], 
+    materials: ['Database Management Systems Book'], 
+    youtubeLink: 'https://www.youtube.com/watch?v=f1SgAv3L1Sg' 
+  },
+  { 
+    id: '5', 
+    name: 'Data Analysis', 
+    description: 'Study data analysis techniques and tools.', 
+    price: 'R1500', 
+    image: require('../assets/data-analysis.jpg'), 
+    lessons: ['Introduction to Data Analysis', 'Data Visualization', 'Statistical Analysis'], 
+    materials: ['Data Analysis with Python Book'], 
+    youtubeLink: 'https://www.youtube.com/watch?v=1KkKH8TVbhg' 
+  },
+  { 
+    id: '6', 
+    name: 'Software Engineering', 
+    description: 'Dive into software engineering principles and practices.', 
+    price: 'R2500', 
+    image: require('../assets/software-engineering.jpg'), 
+    lessons: ['Software Development Life Cycle', 'Agile Methodologies', 'Software Design Patterns'], 
+    materials: ['Software Engineering Book'], 
+    youtubeLink: 'https://www.youtube.com/watch?v=Q3W3s5FbgAg' 
+  },
+];
 
 const ComputerScienceDetails: React.FC = () => {
-  const navigation = useNavigation<NavigationProp>();
+  const [searchVisible, setSearchVisible] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  const [isSearchVisible, setSearchVisible] = useState(false);
-
-  const courses: Course[] = [
-    { 
-      id: '1', 
-      name: 'Data Structures', 
-      description: 'Learn about different data structures and their applications.', 
-      price: 'R2200', 
-      image: require('../assets/data-structures.jpg'), 
-      lessons: ['Introduction', 'Arrays', 'Linked Lists'], 
-      materials: ['Data Structures Book'], 
-      youtubeLink: 'https://www.youtube.com/watch?v=KJgsSFOSQv0' 
-    },
-    { 
-      id: '2', 
-      name: 'Operating Systems', 
-      description: 'Explore the fundamentals of operating systems.', 
-      price: 'R1300', 
-      image: require('../assets/operating-systems.jpg'), 
-      lessons: ['Basics of OS', 'Processes', 'Memory Management'], 
-      materials: ['Operating Systems Book'], 
-      youtubeLink: 'https://www.youtube.com/watch?v=1234567890' 
-    },
-    { 
-      id: '3', 
-      name: 'Computer Networks', 
-      description: 'Understand the basics of computer networks.', 
-      price: 'R2190', 
-      image: require('../assets/computer-networks.jpg'), 
-      lessons: ['Network Fundamentals', 'OSI Model', 'TCP/IP', 'Network Security'], 
-      materials: ['Networking Essentials Book'], 
-      youtubeLink: 'https://www.youtube.com/watch?v=9bZkp7q19f0' 
-    },
-    { 
-      id: '4', 
-      name: 'Database Management', 
-      description: 'Learn about database management systems and their use.', 
-      price: 'R1500', 
-      image: require('../assets/database-management.jpg'), 
-      lessons: ['Database Concepts', 'SQL Basics', 'Normalization', 'Transactions'], 
-      materials: ['Database Management Systems Book'], 
-      youtubeLink: 'https://www.youtube.com/watch?v=f1SgAv3L1Sg' 
-    },
-    { 
-      id: '5', 
-      name: 'Data Analysis', 
-      description: 'Study data analysis techniques and tools.', 
-      price: 'R1500', 
-      image: require('../assets/data-analysis.jpg'), 
-      lessons: ['Introduction to Data Analysis', 'Data Visualization', 'Statistical Analysis'], 
-      materials: ['Data Analysis with Python Book'], 
-      youtubeLink: 'https://www.youtube.com/watch?v=1KkKH8TVbhg' 
-    },
-    { 
-      id: '6', 
-      name: 'Software Engineering', 
-      description: 'Dive into software engineering principles and practices.', 
-      price: 'R2500', 
-      image: require('../assets/software-engineering.jpg'), 
-      lessons: ['Software Development Life Cycle', 'Agile Methodologies', 'Software Design Patterns'], 
-      materials: ['Software Engineering Book'], 
-      youtubeLink: 'https://www.youtube.com/watch?v=Q3W3s5FbgAg' 
-    },
-  ];
-
-  const filteredCourses = courses.filter(course =>
-    course.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
-
-  const handleSearchPress = () => {
-    setSearchVisible(!isSearchVisible);
-  };
+  const [filteredCourses, setFilteredCourses] = useState<Course[]>(courses);
+  const navigation = useNavigation<any>(); // Use correct type here
 
   const handleCoursePress = (course: Course) => {
     navigation.navigate('CourseDetail', { course });
+  };
+
+  const handleSearchPress = () => {
+    setSearchVisible(!searchVisible);
+    if (!searchVisible) {
+      setSearchQuery(''); // Clear search query when showing search bar
+      setFilteredCourses(courses); // Reset filtered courses
+    }
+  };
+
+  const handleSearchChange = (text: string) => {
+    setSearchQuery(text);
+    // Filter courses based on search query
+    const filtered = courses.filter(course => course.name.toLowerCase().includes(text.toLowerCase()));
+    setFilteredCourses(filtered);
   };
 
   const renderItem = ({ item }: { item: Course }) => (
@@ -105,13 +119,15 @@ const ComputerScienceDetails: React.FC = () => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.content}>
-        {isSearchVisible && (
-          <TextInput
-            style={styles.searchInput}
-            placeholder="Search courses..."
-            value={searchQuery}
-            onChangeText={setSearchQuery}
-          />
+        {searchVisible && (
+          <View style={styles.searchContainer}>
+            <TextInput
+              style={styles.searchInput}
+              placeholder="Search courses..."
+              value={searchQuery}
+              onChangeText={handleSearchChange}
+            />
+          </View>
         )}
         <Text style={styles.heading}>Computer Science Topics</Text>
         <FlatList
@@ -122,6 +138,7 @@ const ComputerScienceDetails: React.FC = () => {
           columnWrapperStyle={styles.grid}
         />
       </View>
+      <Footer onSearchPress={handleSearchPress} />
     </SafeAreaView>
   );
 };
@@ -133,7 +150,7 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
-    paddingBottom: 60,
+    paddingBottom: 60, // Ensure space for the footer
   },
   heading: {
     fontSize: 24,
@@ -142,13 +159,26 @@ const styles = StyleSheet.create({
     marginVertical: 20,
     color: '#333',
   },
-  searchInput: {
-    marginHorizontal: 10,
+  searchContainer: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
     padding: 10,
-    borderWidth: 1,
+    backgroundColor: '#fff',
+    borderBottomWidth: 1,
+    borderBottomColor: '#ddd',
+    zIndex: 1, // Ensure search bar is on top of other elements
+  },
+  searchInput: {
+    height: 40,
     borderColor: '#ddd',
+    borderWidth: 1,
     borderRadius: 5,
-    marginBottom: 20,
+    paddingHorizontal: 10,
+  },
+  grid: {
+    justifyContent: 'space-around',
   },
   itemContainer: {
     flex: 1,
@@ -193,9 +223,6 @@ const styles = StyleSheet.create({
   enrollButtonText: {
     color: '#fff',
     fontSize: 16,
-  },
-  grid: {
-    justifyContent: 'space-around',
   },
 });
 
