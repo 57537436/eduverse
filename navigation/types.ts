@@ -2,10 +2,13 @@
 
 export type Course = {
   id: string;
-  name: string;
+  name: string; // Use 'name' instead of 'title'
   description: string;
-  image: any; // Use a more specific type if you have one, such as `number` for image resources
+  image: any; // You can use `number` if you're using static image resources
   price: string;
+  lessons?: string[];
+  materials?: string[];
+  youtubeLink?: string;
 };
 
 export type RootStackParamList = {

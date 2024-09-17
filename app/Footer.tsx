@@ -1,5 +1,6 @@
+// app/Footer.tsx
 import React from 'react';
-import { View, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, TouchableOpacity, StyleSheet, Text } from 'react-native';
 import { Ionicons, FontAwesome } from '@expo/vector-icons';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 import { RootStackParamList } from '../navigation/types'; // Adjust the path as needed
@@ -40,11 +41,13 @@ const Footer: React.FC<FooterProps> = ({ onSearchPress }) => {
       {/* Notifications Button */}
       <TouchableOpacity style={styles.iconButton}>
         <Ionicons name="notifications-outline" size={24} color="#007bff" />
+        <Text style={styles.iconLabel}>Notifications</Text>
       </TouchableOpacity>
 
       {/* Profile Button */}
       <TouchableOpacity onPress={handleProfileClick} style={styles.iconButton}>
         <FontAwesome name="user" size={24} color="#007bff" />
+        <Text style={styles.iconLabel}>Profile</Text>
       </TouchableOpacity>
     </View>
   );
@@ -62,6 +65,12 @@ const styles = StyleSheet.create({
   },
   iconButton: {
     padding: 10,
+    alignItems: 'center',
+  },
+  iconLabel: {
+    fontSize: 12,
+    color: '#007bff',
+    marginTop: 5,
   },
 });
 
