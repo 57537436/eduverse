@@ -18,7 +18,7 @@ export type RootStackParamList = {
   ComputerScienceDetails: undefined;
   CourseDetail: { course: Course };
   AI_Courses: undefined;
-  CourseOverview: undefined;
-  CourseDetails: { course: Course }; // Ensure this route is correctly defined
-  Profile: undefined; // Added the Profile route for consistency
+  CourseDetails: {course: any}
+  SignUpScreen: undefined;
+
 };
