@@ -315,13 +315,16 @@ const styles = StyleSheet.create({
   },
   heading: {
     fontSize: 32,
-    fontWeight: '500',
+    fontWeight: '300',
     marginHorizontal: 10,
+    color: '#333',
   },
   containerHeading: {
     marginHorizontal: 5,
     fontSize: 20,
-    fontWeight: '400',
+    fontWeight: '300',
+    color: '#333',
+    
   },
   sectionHeader: {
     flexDirection: 'row',
