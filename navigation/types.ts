@@ -18,7 +18,8 @@ export type RootStackParamList = {
   ComputerScienceDetails: undefined;
   CourseDetail: { course: Course };
   AI_Courses: undefined;
-  CourseDetails: {course: any}
+  CourseOverview: { course: string }; // Add this line
+  CourseDetails: { course: any };
   SignUpScreen: undefined;
-
+  Profile: undefined;
 };
