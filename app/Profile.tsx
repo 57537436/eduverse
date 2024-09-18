@@ -15,9 +15,7 @@ const ProfileScreen = () => {
           />
           <View style={styles.profileInfo}>
             <Text variant="titleLarge">Henry Stan</Text>
-            <Button mode="text" onPress={() => Alert.alert('Show Profile')}>
-              Show Profile
-            </Button>
+            
           </View>
         </View>
         <Divider />
@@ -40,6 +38,22 @@ const ProfileScreen = () => {
 
       {/* Support Section */}
       <View style={styles.section}>
+        <Text variant="headlineSmall">Downloads</Text>
+        <List.Item
+          title="History"
+          left={() => <IconButton icon={() => <MaterialCommunityIcons name="history" size={24} />} />}
+          right={() => <IconButton icon={() => <MaterialCommunityIcons name="chevron-right" size={24} />} />}
+        />
+        <Divider />
+        <List.Item
+          title="Downloads"
+          left={() => <IconButton icon={() => <MaterialCommunityIcons name="download" size={24} />} />}
+          right={() => <IconButton icon={() => <MaterialCommunityIcons name="chevron-right" size={24} />} />}
+        />
+      </View>
+
+            {/* Support Section */}
+      <View style={styles.section}>
         <Text variant="headlineSmall">Support</Text>
         <List.Item
           title="Get Help"
@@ -56,7 +70,7 @@ const ProfileScreen = () => {
 
       {/* Logout Button */}
       <View style={styles.logoutButtonContainer}>
-        <Button mode="contained" buttonColor="red" onPress={() => Alert.alert('Logout')}>
+        <Button mode="contained" buttonColor="indigo" onPress={() => Alert.alert('Logout')}>
           Logout
         </Button>
       </View>
