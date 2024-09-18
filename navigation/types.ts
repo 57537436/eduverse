@@ -23,4 +23,9 @@ export type RootStackParamList = {
   Profile: undefined;
   SearchBar: undefined;
   index: undefined;
+  account: undefined;
+  AccountScreen: undefined;
+  ChangePasswordScreen: undefined;
+  passwordChange: undefined;
 };
+

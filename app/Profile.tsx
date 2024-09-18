@@ -1,21 +1,30 @@
 import React from 'react';
-import { View, StyleSheet, Alert } from 'react-native';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { Avatar, Button, Divider, List, IconButton, Text } from 'react-native-paper';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { useNavigation, NavigationProp } from '@react-navigation/native';
+import { RootStackParamList } from '../navigation/types'; // Adjust the path as needed
+import { Alert } from 'react-native';
 
 const ProfileScreen = () => {
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+
+  // Handle Account click
+  const handleAccountClick = () => {
+    navigation.navigate('passwordChange');
+  };
+
   return (
     <View style={styles.container}>
       {/* Profile Section */}
       <View style={styles.section}>
         <View style={styles.profileContainer}>
-        <Avatar.Image
+          <Avatar.Image
             size={90}
             source={require('../assets/nu.jpg')} // Update the path to your local image
           />
           <View style={styles.profileInfo}>
             <Text variant="titleLarge">Henry Stan</Text>
-            
           </View>
         </View>
         <Divider />
@@ -29,10 +38,12 @@ const ProfileScreen = () => {
           right={() => <IconButton icon={() => <MaterialCommunityIcons name="chevron-right" size={24} />} />}
         />
         <Divider />
+        {/* Account Item */}
         <List.Item
           title="Account"
           left={() => <IconButton icon={() => <MaterialCommunityIcons name="cogs" size={24} />} />}
           right={() => <IconButton icon={() => <MaterialCommunityIcons name="chevron-right" size={24} />} />}
+          onPress={handleAccountClick} // Navigate to Account on press
         />
       </View>
 
@@ -48,22 +59,6 @@ const ProfileScreen = () => {
         <List.Item
           title="Downloads"
           left={() => <IconButton icon={() => <MaterialCommunityIcons name="download" size={24} />} />}
-          right={() => <IconButton icon={() => <MaterialCommunityIcons name="chevron-right" size={24} />} />}
-        />
-      </View>
-
-            {/* Support Section */}
-      <View style={styles.section}>
-        <Text variant="headlineSmall">Support</Text>
-        <List.Item
-          title="Get Help"
-          left={() => <IconButton icon={() => <MaterialCommunityIcons name="help-circle-outline" size={24} />} />}
-          right={() => <IconButton icon={() => <MaterialCommunityIcons name="chevron-right" size={24} />} />}
-        />
-        <Divider />
-        <List.Item
-          title="Contact Support"
-          left={() => <IconButton icon={() => <MaterialCommunityIcons name="account-cog" size={24} />} />}
           right={() => <IconButton icon={() => <MaterialCommunityIcons name="chevron-right" size={24} />} />}
         />
       </View>
