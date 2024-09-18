@@ -1,23 +1,20 @@
-import React from 'react';
+import * as React from 'react';
+import { Searchbar } from 'react-native-paper';
 import { TextInput, View, StyleSheet } from 'react-native';
 
-interface SearchBarProps {
-  query: string;
-  onChange: (text: string) => void;
-}
+const MyComponent = () => {
+  const [searchQuery, setSearchQuery] = React.useState('');
 
-const SearchBar: React.FC<SearchBarProps> = ({ query, onChange }) => {
   return (
-    <View style={styles.container}>
-      <TextInput
-        style={styles.input}
-        placeholder="Search for a course..."
-        value={query}
-        onChangeText={onChange}
-      />
-    </View>
+    <Searchbar
+      placeholder="Search"
+      onChangeText={setSearchQuery}
+      value={searchQuery}
+    />
   );
 };
+
+
 
 const styles = StyleSheet.create({
   container: {
@@ -33,4 +30,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SearchBar;
+export default MyComponent;

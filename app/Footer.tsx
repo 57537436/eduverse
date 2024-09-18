@@ -20,18 +20,22 @@ const Footer: React.FC<FooterProps> = ({ onSearchPress }) => {
     navigation.navigate('Profile');
   };
 
+  const handleSearchClick = () => {
+    navigation.navigate('SearchBar');
+  };
+
+
   return (
     <View style={styles.footer}>
-      {/* Search Button */}
-      <TouchableOpacity onPress={onSearchPress} style={styles.iconButton}>
-        <Ionicons name="search" size={24} color="#007bff" />
-        <Text style={styles.iconLabel}>Search</Text>
+
+       {/* Home Button */}
+       <TouchableOpacity onPress={handleHomeClick} style={styles.iconButton}>
+        <Ionicons name="home" size={24} color="#007bff" />
       </TouchableOpacity>
 
-      {/* Home Button */}
-      <TouchableOpacity onPress={handleHomeClick} style={styles.iconButton}>
-        <Ionicons name="home" size={24} color="#007bff" />
-        <Text style={styles.iconLabel}>Home</Text>
+      {/* Search Button */}
+      <TouchableOpacity onPress={handleSearchClick} style={styles.iconButton}>
+        <Ionicons name="search" size={24} color="#007bff" />
       </TouchableOpacity>
 
       {/* Notifications Button */}
