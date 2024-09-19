@@ -3,7 +3,7 @@ import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { Avatar, Button, Divider, List, IconButton, Text } from 'react-native-paper';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
-import { RootStackParamList } from '../navigation/types'; // Adjust the path as needed
+import { RootStackParamList } from '../navigation/types'; 
 import { Alert } from 'react-native';
 
 const ProfileScreen = () => {
@@ -12,6 +12,11 @@ const ProfileScreen = () => {
   // Handle Account click
   const handleAccountClick = () => {
     navigation.navigate('passwordChange');
+  };
+
+  // Handle Personal info click
+  const handlePersonalInfolick = () => {
+    navigation.navigate('personal');
   };
 
   return (
@@ -36,6 +41,7 @@ const ProfileScreen = () => {
           title="Personal Info"
           left={() => <IconButton icon={() => <MaterialCommunityIcons name="account-outline" size={24} />} />}
           right={() => <IconButton icon={() => <MaterialCommunityIcons name="chevron-right" size={24} />} />}
+          onPress={handlePersonalInfolick}
         />
         <Divider />
         {/* Account Item */}
