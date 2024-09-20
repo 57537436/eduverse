@@ -12,18 +12,32 @@ export type Course = {
 };
 
 export type RootStackParamList = {
-  Home: undefined;
+  Home: undefined; // No parameters for Home screen
   Details: { category: string };
   AllProgrammingLanguages: undefined;
   ComputerScienceDetails: undefined;
   CourseDetail: { course: Course };
   AI_Courses: undefined;
-  CourseOverview: { course: string }; // Add this line
+  CourseOverview: { course: string }; // Added this line
   CourseDetails: { course: any };
   SignUpScreen: undefined;
   Profile: undefined;
-  account: undefined;
+  AccountScreen: undefined; // Changed 'account' to 'AccountScreen' for consistency
+  PasswordChangeScreen: undefined;
+  personalEdit: { user: 
+    { name: 
+      string; surname: 
+      string; email: 
+      string; contactNumbers: 
+      string[] } }; 
   passwordChange: undefined;
-  personal: undefined;
+  personal: undefined; // Changed 'passwordChange' to 'PasswordChangeScreen' for consistency
+  account: undefined;
+  EditPersonalScreen: 
+  { user: 
+    { name: 
+      string; surname: 
+      string; email: 
+      string; contactNumbers: 
+      string[] } }; 
 };
-

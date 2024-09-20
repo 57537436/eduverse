@@ -13,7 +13,9 @@ import CourseOverview from '~/app/CourseOverview';
 import Profile from '~/app/Profile';
 import AccountScreen from '../app/account';
 import ChangePasswordScreen from '../app/passwordChange';
-
+import EditPersonalScreen from '../app/personalEdit';
+import ProfilePage from '../app/personal'
+import personalEdit from '../app/personalEdit';
 const Stack = createStackNavigator();
 
 const RootStackNavigator: React.FC = () => (
@@ -29,9 +31,11 @@ const RootStackNavigator: React.FC = () => (
     <Stack.Screen name="CourseDetails" component={CourseDetails} />
     <Stack.Screen name="CourseOverview" component={CourseOverview} />
     <Stack.Screen name="Profile" component={Profile} />
-    <Stack.Screen name="Account" component={AccountScreen} />
+    <Stack.Screen name="account" component={AccountScreen} />
     <Stack.Screen name="passwordChange" component={ChangePasswordScreen} />
-
+    {/* <Stack.Screen name="personalEdit" component={EditPersonalScreen} 
+    initialParams={{ user: { name: '', surname: '', email: '', contactNumbers: [] } }}
+     /> */}
   </Stack.Navigator>
 );
 

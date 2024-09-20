@@ -1,8 +1,13 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { Card, Button, Avatar } from 'react-native-paper';
+import { useNavigation, NavigationProp } from '@react-navigation/native';
+import { RootStackParamList } from '~/navigation/types';
+import EditPersonalScreen from './personalEdit';
 
 const ProfilePage: React.FC = () => {
+
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   // Sample user data with surname
   const user = {
     name: 'Henry',
@@ -11,7 +16,16 @@ const ProfilePage: React.FC = () => {
     contactNumbers: ['+1-234-567-890', '+1-987-654-321'],
     // Replace with actual profile picture URL
   };
-
+  const handlePersonalInfolick = () => {
+  navigation.navigate('personalEdit', { 
+    user: {
+      name: 'Henry',
+      surname: 'Stan',
+      email: 'john.doe@example.com',
+      contactNumbers: ['123-456-7890', '+1-987-654-321']
+    }
+  });
+  };
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Card style={styles.card}>
@@ -43,7 +57,7 @@ const ProfilePage: React.FC = () => {
           </View>
         </View>
         <Card.Actions>
-          <Button mode="contained" onPress={() => console.log('Edit Profile')}>Edit Profile</Button>
+          <Button mode="contained"  >Edit Profile</Button>
         </Card.Actions>
       </Card>
     </ScrollView>
