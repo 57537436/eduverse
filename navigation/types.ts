@@ -12,17 +12,17 @@ export type Course = {
 };
 
 export type RootStackParamList = {
-  Home: undefined; // No parameters for Home screen
+  index: undefined; 
   Details: { category: string };
   AllProgrammingLanguages: undefined;
   ComputerScienceDetails: undefined;
   CourseDetail: { course: Course };
   AI_Courses: undefined;
-  CourseOverview: { course: string }; // Added this line
+  CourseOverview: { course: string }; 
   CourseDetails: { course: any };
   SignUpScreen: undefined;
   Profile: undefined;
-  AccountScreen: undefined; // Changed 'account' to 'AccountScreen' for consistency
+  AccountScreen: undefined; 
   PasswordChangeScreen: undefined;
   personalEdit: { user: 
     { name: 
@@ -31,7 +31,7 @@ export type RootStackParamList = {
       string; contactNumbers: 
       string[] } }; 
   passwordChange: undefined;
-  personal: undefined; // Changed 'passwordChange' to 'PasswordChangeScreen' for consistency
+  personal: undefined; 
   account: undefined;
   EditPersonalScreen: 
   { user: 

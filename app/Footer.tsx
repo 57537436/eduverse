@@ -13,16 +13,16 @@ const Footer: React.FC<FooterProps> = ({ onSearchPress }) => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
   const handleHomeClick = () => {
-    navigation.navigate('Home');
+    navigation.navigate('index');
   };
 
   const handleProfileClick = () => {
     navigation.navigate('Profile');
   };
 
-  const handleSearchClick = () => {
-    navigation.navigate('SearchBar');
-  };
+  // const handleSearchClick = () => {
+  //   navigation.navigate('SearchBar');
+  // };
 
 
   return (
@@ -34,7 +34,7 @@ const Footer: React.FC<FooterProps> = ({ onSearchPress }) => {
       </TouchableOpacity>
 
       {/* Search Button */}
-      <TouchableOpacity onPress={handleSearchClick} style={styles.iconButton}>
+      <TouchableOpacity  style={styles.iconButton}>
         <Ionicons name="search" size={24} color="#007bff" />
       </TouchableOpacity>
 
