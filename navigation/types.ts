@@ -21,6 +21,7 @@ export type RootStackParamList = {
   CourseOverview: { course: string }; 
   CourseDetails: { course: any };
   SignUpScreen: undefined;
+  LogInScreen: undefined;
   Profile: undefined;
   AccountScreen: undefined; 
   PasswordChangeScreen: undefined;

@@ -11,7 +11,7 @@ import HeaderButtons from '~/components/HeaderButtons'; // Import the custom hea
 import Footer from './Footer'; // Import the Footer component
 
 // Define navigation prop type
-type NavigationProp = StackNavigationProp<RootStackParamList, 'Home'>;
+type NavigationProp = StackNavigationProp<RootStackParamList, 'index'>;
 
 const Home: React.FC = () => {
   const [searchVisible, setSearchVisible] = useState(false);
@@ -32,13 +32,16 @@ const Home: React.FC = () => {
       <Stack.Screen 
         options={{
           headerTitle: () => (
+            <View style={styles.headerContainer}>
             <Image 
               source={require('../assets/nu.jpg')} // Update path to your logo image
               style={styles.logo}
               resizeMode="contain"
             />
+            <Text style={styles.headerText}>Eduverse Academy</Text>
+            </View>
           ),
-          headerRight: () => <HeaderButtons />, // Set custom header component
+           
         }} 
       />
 
@@ -297,6 +300,19 @@ const Home: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+
+  headerContainer: {
+    alignItems: 'center',
+    paddingVertical: 10,
+    flexDirection: 'row', // Aligns logo and text in a row
+    justifyContent: 'center',
+  },
+  headerText: {
+    fontSize: 17,
+    fontWeight: '600',
+    color: '#333',
+    marginLeft: 10, // Space between logo and text
   },
   scrollView: {
     paddingVertical: 10,

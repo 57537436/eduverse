@@ -19,6 +19,16 @@ const ProfileScreen = () => {
     navigation.navigate('personal');
   };
 
+  // Handle Sign Up click
+  const handleSignUp = () => {
+    navigation.navigate('SignUpScreen'); // Adjust the target screen as necessary
+  };
+
+  // Handle Log In click
+  const handleLogIn = () => {
+    navigation.navigate('LogInScreen'); // Adjust the target screen as necessary
+  };
+
   return (
     <View style={styles.container}>
       {/* Profile Section */}
@@ -29,7 +39,17 @@ const ProfileScreen = () => {
             source={require('../assets/nu.jpg')} // Update the path to your local image
           />
           <View style={styles.profileInfo}>
-            <Text variant="titleLarge">Henry Stan</Text>
+            <Text variant="titleLarge">User</Text>
+            
+            {/* Sign Up and Log In Buttons */}
+            <View style={styles.buttonContainer}>
+              <Button mode="outlined" onPress={handleSignUp} style={styles.button}>
+                Sign Up
+              </Button>
+              <Button mode="outlined" onPress={handleLogIn} style={styles.button}>
+                Log In
+              </Button>
+            </View>
           </View>
         </View>
         <Divider />
@@ -95,6 +115,13 @@ const styles = StyleSheet.create({
   },
   profileInfo: {
     marginLeft: 16,
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    marginTop: 10, // Add some space above the buttons
+  },
+  button: {
+    marginRight: 10, // Space between buttons
   },
   logoutButtonContainer: {
     marginTop: 'auto',

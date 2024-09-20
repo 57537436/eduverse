@@ -31,11 +31,13 @@ const Footer: React.FC<FooterProps> = ({ onSearchPress }) => {
        {/* Home Button */}
        <TouchableOpacity onPress={handleHomeClick} style={styles.iconButton}>
         <Ionicons name="home" size={24} color="#007bff" />
+        <Text style={styles.iconLabel}>Home</Text>
       </TouchableOpacity>
 
       {/* Search Button */}
       <TouchableOpacity  style={styles.iconButton}>
         <Ionicons name="search" size={24} color="#007bff" />
+        <Text style={styles.iconLabel}>Search</Text>
       </TouchableOpacity>
 
       {/* Notifications Button */}
