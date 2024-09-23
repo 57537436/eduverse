@@ -285,9 +285,7 @@ const Home: React.FC = () => {
               </View>
               {/* Add more AI modules here */}
             </View>
-          </ScrollView>
-
-          <Button title="Show Details" onPress={() => navigation.navigate('AI_Courses')} />
+          </ScrollView>          
         </Container>
       </ScrollView>
 
