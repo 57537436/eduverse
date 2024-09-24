@@ -1,24 +1,39 @@
 import React, { useState } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Modal, TextInput, Alert } from 'react-native';
 import { Text, RadioButton, Button, Card, Title, Paragraph } from 'react-native-paper';
 
 const PaymentScreen = () => {
   const [paymentMethod, setPaymentMethod] = useState('Mpesa');
+  const [modalVisible, setModalVisible] = useState(false);
+  const [pin, setPin] = useState('');
 
   const getPaymentDetails = () => {
     switch (paymentMethod) {
       case 'Ecocash':
-        return { name: 'Eduverse Academy', merchantNumber: '68944' };
+        return { name: 'Eduverse Academy', detail: '68944' }; // Merchant number for Ecocash
       case 'Mpesa':
-        return { name: 'Eduverse Academy', merchantNumber: '58914' };
+        return { name: 'Eduverse Academy', detail: '58914' }; // Merchant number for Mpesa
       case 'Bank':
-        return { name: 'Eduverse Academy', merchantNumber: '90800000000' }; 
+        return { name: 'Eduverse Academy', detail: '9080000000' }; // Account number for Bank
       default:
-        return { name: '', merchantNumber: '' };
+        return { name: '', detail: '' };
     }
   };
 
-  const { name, merchantNumber } = getPaymentDetails();
+  const handlePayment = () => {
+    setModalVisible(true);
+  };
+
+  const handleConfirmPayment = () => {
+    setModalVisible(false);
+    if (pin) {
+      Alert.alert('Payment Successful', `Your payment with PIN: ${pin} was successful!`);
+    } else {
+      Alert.alert('Payment Failed', 'Please enter a valid PIN.');
+    }
+  };
+
+  const { name, detail } = getPaymentDetails();
 
   return (
     <View style={styles.container}>
@@ -63,15 +78,43 @@ const PaymentScreen = () => {
           <Text>{name}</Text>
         </View>
         <View style={styles.paymentRow}>
-          <Text>Merchant Number</Text>
-          <Text>{merchantNumber}</Text>
+          <Text>{paymentMethod === 'Bank' ? 'Account Number' : 'Merchant Number'}</Text>
+          <Text>{detail}</Text>
         </View>
       </View>
 
       {/* Pay Button */}
-      <Button mode="contained" icon="arrow-right" onPress={() => console.log('Payment initiated')} style={styles.payButton}>
-        Pay R500
-      </Button>
+      <View style={styles.payButtonContainer}>
+        <Button mode="contained" buttonColor="indigo" onPress={handlePayment}>
+          Pay R500
+        </Button>
+      </View>
+
+      {/* Modal for entering PIN */}
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => setModalVisible(false)}
+      >
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalTitle}>Enter Your PIN for {paymentMethod}</Text>
+            <TextInput
+              style={styles.input}
+              placeholder="Enter PIN"
+              value={pin}
+              onChangeText={setPin}
+              keyboardType="numeric"
+              secureTextEntry
+            />
+            <View style={styles.buttonRow}>
+              <Button mode="contained" onPress={handleConfirmPayment}>Confirm</Button>
+              <Button mode="text" onPress={() => setModalVisible(false)}>Cancel</Button>
+            </View>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };
@@ -127,9 +170,38 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginBottom: 8,
   },
-  payButton: {
-    backgroundColor: '#007bff',
-    paddingVertical: 8,
+  payButtonContainer: {
+    marginTop: 'auto',
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  modalContent: {
+    width: 300,
+    padding: 20,
+    backgroundColor: 'white',
+    borderRadius: 10,
+    elevation: 5,
+  },
+  modalTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 20,
+    textAlign: 'center',
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: '#ccc',
+    padding: 10,
+    borderRadius: 5,
+    marginBottom: 20,
+  },
+  buttonRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
 });
 
