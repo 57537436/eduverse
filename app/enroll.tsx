@@ -1,13 +1,25 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Image } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { Text, RadioButton, Button, Card, Title, Paragraph } from 'react-native-paper';
-import { useRoute } from '@react-navigation/native';
 
 const PaymentScreen = () => {
   const [paymentMethod, setPaymentMethod] = useState('Mpesa');
 
+  const getPaymentDetails = () => {
+    switch (paymentMethod) {
+      case 'Ecocash':
+        return { name: 'Eduverse Academy', merchantNumber: '68944' };
+      case 'Mpesa':
+        return { name: 'Eduverse Academy', merchantNumber: '58914' };
+      case 'Bank':
+        return { name: 'Eduverse Academy', merchantNumber: '90800000000' }; 
+      default:
+        return { name: '', merchantNumber: '' };
+    }
+  };
 
-  
+  const { name, merchantNumber } = getPaymentDetails();
+
   return (
     <View style={styles.container}>
       {/* Course Header */}
@@ -47,12 +59,12 @@ const PaymentScreen = () => {
       {/* Payment Details */}
       <View style={styles.paymentDetails}>
         <View style={styles.paymentRow}>
-          <Text>Mpesa</Text>
-          <Text>Nu Academy</Text>
+          <Text>{paymentMethod}</Text>
+          <Text>{name}</Text>
         </View>
         <View style={styles.paymentRow}>
           <Text>Merchant Number</Text>
-          <Text>58914</Text>
+          <Text>{merchantNumber}</Text>
         </View>
       </View>
 
