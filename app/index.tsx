@@ -298,7 +298,8 @@ const Home: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingLeft: 0,
+    marginLeft: -20,
+    marginRight: -20,
   },
 
   headerContainer: {
@@ -431,7 +432,8 @@ const styles = StyleSheet.create({
   },
   logo: {
     width: 100, // Adjusted size
-    height: 30, // Adjusted size
+    height: 30,
+    marginLeft: -40, // Adjusted size
   },
 });
 
