@@ -290,7 +290,7 @@ const Home: React.FC = () => {
       </ScrollView>
 
       {/* Add Footer component here */}
-      <Footer onSearchPress={handleSearchPress} />
+      <Footer onSearchPress={handleSearchPress} data={[]} />
     </SafeAreaView>
   );
 };
@@ -298,6 +298,7 @@ const Home: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingLeft: 0,
   },
 
   headerContainer: {
@@ -305,16 +306,20 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     flexDirection: 'row', // Aligns logo and text in a row
     justifyContent: 'center',
+    paddingLeft: -10,
   },
   headerText: {
     fontSize: 17,
     fontWeight: '600',
     color: '#333',
-    marginLeft: 10, // Space between logo and text
+    marginLeft: 0, // Space between logo and text
+
   },
+  
   scrollView: {
-    paddingVertical: 10,
+    paddingVertical: -10,
     paddingBottom: 60, // Ensure content doesn't overlap with Footer
+    paddingLeft: 0, 
   },
   button: {
     backgroundColor: '#007bff',
@@ -322,6 +327,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     margin: 10,
     alignItems: 'center',
+    marginLeft: 0,
   },
   buttonText: {
     color: '#fff',
@@ -332,12 +338,14 @@ const styles = StyleSheet.create({
     fontWeight: '300',
     marginHorizontal: 10,
     color: '#333',
+    marginLeft: 0,
   },
   containerHeading: {
     marginHorizontal: 5,
     fontSize: 20,
     fontWeight: '300',
     color: '#333',
+    marginLeft: 0,
     
   },
   sectionHeader: {
@@ -346,10 +354,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginHorizontal: 10,
     marginVertical: -25,
+    paddingLeft: 0,
   },
   moduleRow: {
     flexDirection: 'row',
     paddingVertical: 10,
+    paddingLeft: 0,
   },
   moduleContainer: {
     width: 220,
@@ -362,6 +372,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 }, // Shadow offset for iOS
     shadowOpacity: 0.1, // Shadow opacity for iOS
     shadowRadius: 4, // Shadow radius for iOS
+    marginLeft: 0,
   },
   moduleImage: {
     width: '100%',
@@ -395,6 +406,7 @@ const styles = StyleSheet.create({
     textAlign: 'right',
     fontWeight: 'bold', // To make it look like a clickable link
     textDecorationLine: 'underline', // Underline the text to indicate it's clickable
+    paddingHorizontal: 5,
   },
   searchBarContainer: {
     backgroundColor: '#fff',
