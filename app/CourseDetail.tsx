@@ -1,7 +1,8 @@
 // app/CourseDetail.tsx
 import React from 'react';
-import { View, Text, Image, StyleSheet, SafeAreaView, Linking, TouchableOpacity, FlatList } from 'react-native';
+import { View, Text, Image, StyleSheet, SafeAreaView, Linking, TouchableOpacity, FlatList, ScrollView } from 'react-native';
 import { RouteProp, useRoute } from '@react-navigation/native';
+import { Avatar } from 'react-native-paper';
 import { RootStackParamList } from '../navigation/types';
 
 type CourseDetailRouteProp = RouteProp<RootStackParamList, 'CourseDetail'>;
@@ -26,47 +27,65 @@ const CourseDetail: React.FC = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.content}>
-        <Image source={course.image} style={styles.image} />
-        <Text style={styles.title}>{course.name}</Text>
-        <Text style={styles.description}>{course.description}</Text>
-        <Text style={styles.price}>{course.price}</Text>
+      <ScrollView>
+        <View style={styles.content}>
+          {/* Course Image and Info */}
+          <Image source={course.image} style={styles.image} />
+          <Text style={styles.title}>{course.name}</Text>
+          <Text style={styles.description}>{course.description}</Text>
+          <Text style={styles.price}>{course.price}</Text>
 
-        {/* Lessons Section */}
-        <View style={styles.section}>
-          <Text style={styles.sectionHeading}>Lessons</Text>
-          {course.lessons ? (
-            <FlatList
-              data={course.lessons}
-              renderItem={renderItem}
-              keyExtractor={(item) => item}
+          {/* Instructor Profile Section */}
+          <View style={styles.profileContainer}>
+            <Avatar.Image
+              size={90}
+              source={require('../assets/nu.jpg')} // Replace with actual instructor image
             />
-          ) : (
-            <Text style={styles.sectionItem}>No lessons available.</Text>
+            <View style={styles.profileInfo}>
+              <Text style={styles.profileName}>Instructor: {course.instructor}</Text>
+              <Text style={styles.profileDetails}>Experience: {course.instructorExperience}</Text>
+              <Text style={styles.profileDetails}>Performance: {course.instructorPerformance}</Text>
+            </View>
+          </View>
+
+          {/* Lessons Section */}
+          <View style={styles.section}>
+            <Text style={styles.sectionHeading}>Lessons</Text>
+            {course.lessons ? (
+              <FlatList
+                data={course.lessons}
+                renderItem={renderItem}
+                keyExtractor={(item) => item}
+                scrollEnabled={false} // Disable FlatList scroll to allow ScrollView to handle scrolling
+              />
+            ) : (
+              <Text style={styles.sectionItem}>No lessons available.</Text>
+            )}
+          </View>
+
+          {/* Materials Section */}
+          <View style={styles.section}>
+            <Text style={styles.sectionHeading}>Materials</Text>
+            {course.materials ? (
+              <FlatList
+                data={course.materials}
+                renderItem={renderItem}
+                keyExtractor={(item) => item}
+                scrollEnabled={false} // Disable FlatList scroll to allow ScrollView to handle scrolling
+              />
+            ) : (
+              <Text style={styles.sectionItem}>No materials available.</Text>
+            )}
+          </View>
+
+          {/* Video Link */}
+          {course.youtubeLink && (
+            <TouchableOpacity style={styles.button} onPress={handleWatchVideo}>
+              <Text style={styles.buttonText}>Watch Intro</Text>
+            </TouchableOpacity>
           )}
         </View>
-
-        {/* Materials Section */}
-        <View style={styles.section}>
-          <Text style={styles.sectionHeading}>Materials</Text>
-          {course.materials ? (
-            <FlatList
-              data={course.materials}
-              renderItem={renderItem}
-              keyExtractor={(item) => item}
-            />
-          ) : (
-            <Text style={styles.sectionItem}>No materials available.</Text>
-          )}
-        </View>
-
-        {/* Video Link */}
-        {course.youtubeLink && (
-          <TouchableOpacity style={styles.button} onPress={handleWatchVideo}>
-            <Text style={styles.buttonText}>Watch Video Tutorial</Text>
-          </TouchableOpacity>
-        )}
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -129,6 +148,23 @@ const styles = StyleSheet.create({
   sectionItem: {
     fontSize: 16,
     color: '#666',
+  },
+  profileContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 20,
+    marginBottom: 20,
+  },
+  profileInfo: {
+    marginLeft: 15,
+  },
+  profileName: {
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  profileDetails: {
+    fontSize: 16,
+    color: '#555',
   },
 });
 

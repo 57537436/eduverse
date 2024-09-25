@@ -1,7 +1,9 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet, FlatList, TouchableOpacity, Linking, SafeAreaView } from 'react-native';
 import { RouteProp, useRoute } from '@react-navigation/native';
+import { Avatar } from 'react-native-paper';
 
+// Define Course type
 interface Course {
   name: string;
   description: string;
@@ -10,8 +12,12 @@ interface Course {
   lessons?: string[];
   materials?: string[];
   youtubeLink?: string;
+  instructor: string; // Add instructor field
+  instructorExperience: string; // Add experience field
+  instructorPerformance: string; // Add performance field
 }
 
+// Define RootStackParamList type
 type RootStackParamList = {
   CourseOverview: { course: Course };
 };
@@ -66,11 +72,28 @@ const CourseOverview: React.FC = () => {
         data={sections}
         renderItem={({ item }) => renderSection(item)}
         keyExtractor={(item) => item.title}
-        ListHeaderComponent={<Text style={styles.mainHeading}>Course Details</Text>}
+        ListHeaderComponent={
+          <>
+            <Text style={styles.mainHeading}>Course Details</Text>
+
+            {/* Instructor Profile Section */}
+            <View style={styles.profileContainer}>
+              <Avatar.Image
+                size={90}
+                source={require('../assets/nu.jpg')} // Replace with actual instructor image
+              />
+              <View style={styles.profileInfo}>
+                <Text style={styles.profileName}>Instructor: {course.instructor}</Text>
+                <Text style={styles.profileDetails}>Experience: {course.instructorExperience}</Text>
+                <Text style={styles.profileDetails}>Performance: {course.instructorPerformance}</Text>
+              </View>
+            </View>
+          </>
+        }
         ListFooterComponent={
           course.youtubeLink ? (
             <TouchableOpacity style={styles.button} onPress={handleWatchVideo}>
-              <Text style={styles.buttonText}>Watch Video Tutorial</Text>
+              <Text style={styles.buttonText}>Watch Intro</Text>
             </TouchableOpacity>
           ) : null
         }
@@ -154,6 +177,22 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginVertical: 10,
     textAlign: 'center',
+  },
+  profileContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 20,
+  },
+  profileInfo: {
+    marginLeft: 15,
+  },
+  profileName: {
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  profileDetails: {
+    fontSize: 16,
+    color: '#555',
   },
 });
 

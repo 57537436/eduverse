@@ -1,6 +1,11 @@
 // navigation/types.ts
 
+import { ReactNode } from "react";
+
 export type Course = {
+  instructor: ReactNode;
+  instructorExperience: ReactNode;
+  instructorPerformance: ReactNode;
   id: string;
   name: string; // Use 'name' instead of 'title'
   description: string;

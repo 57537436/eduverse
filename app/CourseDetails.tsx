@@ -1,7 +1,8 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet, FlatList, TouchableOpacity, Linking, SafeAreaView } from 'react-native';
 import { RouteProp, useRoute } from '@react-navigation/native';
-import { Heading } from '@gluestack-ui/themed'; // Ensure that Heading is being used appropriately
+import { Heading } from '@gluestack-ui/themed';
+import { Avatar } from 'react-native-paper';
 
 // Define Course type
 interface Course {
@@ -12,6 +13,9 @@ interface Course {
   lessons?: string[];
   materials?: string[];
   youtubeLink?: string;
+  instructor: string;
+  instructorExperience: string; // Add experience field
+  instructorPerformance: string; // Add performance field
 }
 
 // Define RootStackParamList type
@@ -58,25 +62,50 @@ const CourseDetails: React.FC = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-        <Image source={course.image} style={styles.courseImage} />
-        <Heading style={styles.courseName}>{course.name}</Heading>
-        <Text style={styles.coursePrice}>{course.price}</Text>
-      </View>
-
-      <Text style={styles.courseDescription}>{course.description}</Text>
-
       <FlatList
+        ListHeaderComponent={
+          <>
+            <View style={styles.header}>
+              <Image source={course.image} style={styles.courseImage} />
+              <Heading style={styles.courseName}>{course.name}</Heading>
+              <Text style={styles.coursePrice}>{course.price}</Text>
+            </View>
+
+            <Text style={styles.courseDescription}>{course.description}</Text>
+
+            <Text style={styles.mainHeading}>Course Details</Text>
+
+            {/* Instructor Profile Section (in ListHeaderComponent for scrolling) */}
+            <View style={styles.section}>
+              <View style={styles.profileContainer}>
+                <Avatar.Image
+                  size={90}
+                  source={require('../assets/nu.jpg')} 
+                />
+                <View style={styles.profileInfo}>
+                  <Text style={styles.profileName}>Instructor: {course.instructor}</Text>
+                  <Text style={styles.profileDetails}>
+                    Experience: {course.instructorExperience}
+                  </Text>
+                  <Text style={styles.profileDetails}>
+                    Performance: {course.instructorPerformance}
+                  </Text>
+                </View>
+              </View>
+            </View>
+          </>
+        }
         data={sections}
         renderItem={({ item }) => renderSection(item)}
         keyExtractor={(item) => item.title}
-        ListHeaderComponent={<Text style={styles.mainHeading}>Course Details</Text>}
         ListFooterComponent={
-          course.youtubeLink ? (
-            <TouchableOpacity style={styles.button} onPress={handleWatchVideo}>
-              <Text style={styles.buttonText}>Watch Video Tutorial</Text>
-            </TouchableOpacity>
-          ) : null
+          <>
+            {course.youtubeLink ? (
+              <TouchableOpacity style={styles.button} onPress={handleWatchVideo}>
+                <Text style={styles.buttonText}>Watch Intro</Text>
+              </TouchableOpacity>
+            ) : null}
+          </>
         }
       />
     </SafeAreaView>
@@ -158,6 +187,22 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginVertical: 10,
     textAlign: 'center',
+  },
+  profileContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 20,
+  },
+  profileInfo: {
+    marginLeft: 15,
+  },
+  profileName: {
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  profileDetails: {
+    fontSize: 16,
+    color: '#555',
   },
 });
 
