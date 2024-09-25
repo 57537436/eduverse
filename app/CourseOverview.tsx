@@ -99,12 +99,10 @@ const CourseOverview: React.FC = () => {
           <>
             {course.youtubeLink && (
               <TouchableOpacity style={styles.button} onPress={handleWatchVideo}>
-                <Text style={styles.buttonText}>Watch Video Tutorial</Text>
+                <Text style={styles.buttonText}>Watch Intro</Text>
               </TouchableOpacity>
             )}
-            <TouchableOpacity style={styles.enrollButton} onPress={handleEnroll}>
-              <Text style={styles.enrollButtonText}>Enroll Now</Text>
-            </TouchableOpacity>
+            
           </>
         }
       />

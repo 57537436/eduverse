@@ -155,7 +155,7 @@ const AllProgrammingLanguages: React.FC = () => {
           columnWrapperStyle={styles.grid}
         />
       </View>
-      <Footer onSearchPress={handleSearchPress} />
+      <Footer onSearchPress={handleSearchPress} data={[]} />
     </SafeAreaView>
   );
 };

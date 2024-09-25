@@ -34,11 +34,11 @@ const Home: React.FC = () => {
           headerTitle: () => (
             <View style={styles.headerContainer}>
             <Image 
-              source={require('../assets/nu.jpg')} // Update path to your logo image
+              source={require('../assets/logo.png')} // Update path to your logo image
               style={styles.logo}
               resizeMode="contain"
             />
-            <Text style={styles.headerText}>Eduverse Academy</Text>
+            
             </View>
           ),
            

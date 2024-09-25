@@ -110,8 +110,10 @@ const ComputerScienceDetails: React.FC = () => {
       <Text style={styles.itemTitle}>{item.name}</Text>
       <Text style={styles.itemDescription}>{item.description}</Text>
       <Text style={styles.itemPrice}>{item.price}</Text>
-      <TouchableOpacity style={styles.enrollButton}>
-        <Text style={styles.enrollButtonText}>View Details</Text>
+      <TouchableOpacity 
+        onPress={() => navigation.navigate('enroll', { courseTitle: item.name })} 
+        style={styles.enrollButton}>
+        <Text style={styles.enrollButtonText}>Enroll Now</Text>
       </TouchableOpacity>
     </TouchableOpacity>
   );
@@ -138,7 +140,7 @@ const ComputerScienceDetails: React.FC = () => {
           columnWrapperStyle={styles.grid}
         />
       </View>
-      <Footer onSearchPress={handleSearchPress} />
+      <Footer onSearchPress={handleSearchPress} data={[]} />
     </SafeAreaView>
   );
 };

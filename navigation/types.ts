@@ -24,6 +24,7 @@ export type RootStackParamList = {
   CourseDetail: { course: Course };
   AI_Courses: undefined;
   CourseOverview: { course: string }; 
+  enroll: { courseTitle: string };
   CourseDetails: { course: any };
   SignUpScreen: undefined;
   LogInScreen: undefined;
