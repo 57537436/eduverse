@@ -36,6 +36,11 @@ const CourseOverview: React.FC = () => {
     }
   };
 
+  const handleEnroll = () => {
+    // Implement your enroll logic here
+    console.log(`Enrolled in ${course.name}`);
+  };
+
   const renderItem = ({ item }: { item: string }) => (
     <View style={styles.itemContainer}>
       <Text style={styles.sectionItem}>{item}</Text>
@@ -91,11 +96,16 @@ const CourseOverview: React.FC = () => {
           </>
         }
         ListFooterComponent={
-          course.youtubeLink ? (
-            <TouchableOpacity style={styles.button} onPress={handleWatchVideo}>
-              <Text style={styles.buttonText}>Watch Intro</Text>
+          <>
+            {course.youtubeLink && (
+              <TouchableOpacity style={styles.button} onPress={handleWatchVideo}>
+                <Text style={styles.buttonText}>Watch Video Tutorial</Text>
+              </TouchableOpacity>
+            )}
+            <TouchableOpacity style={styles.enrollButton} onPress={handleEnroll}>
+              <Text style={styles.enrollButtonText}>Enroll Now</Text>
             </TouchableOpacity>
-          ) : null
+          </>
         }
       />
     </SafeAreaView>
@@ -169,6 +179,17 @@ const styles = StyleSheet.create({
     marginVertical: 20,
   },
   buttonText: {
+    color: '#fff',
+    fontSize: 16,
+  },
+  enrollButton: {
+    backgroundColor: '#28a745',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+    alignItems: 'center',
+  },
+  enrollButtonText: {
     color: '#fff',
     fontSize: 16,
   },
