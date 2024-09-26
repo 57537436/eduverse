@@ -31,6 +31,16 @@ export type RootStackParamList = {
   Profile: undefined;
   AccountScreen: undefined; 
   PasswordChangeScreen: undefined;
+  
+  EnrolledModules: {
+    modules: {
+      id: number;
+      name: string;
+      description: string;
+      image: any;
+      progress: number;
+    }[];
+  };
   personalEdit: { user: 
     { name: 
       string; surname: 

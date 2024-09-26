@@ -9,15 +9,40 @@ import { Heading } from '@gluestack-ui/themed';
 const ChangePasswordScreen: React.FC = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
+   // Modules data to be passed to the new screen
+   const enrolledModules = [
+    {
+      id: 1,
+      name: 'PHP',
+      description: 'Server-side scripting language.',
+      image: require('../assets/php.jpg'),
+      progress: 0.5,
+    },
+    {
+      id: 2,
+      name: 'COO',
+      description: 'Object-oriented programming language.',
+      image: require('../assets/coo.jpg'),
+      progress: 0.5,
+    },
+    // Add more modules as needed
+  ];
+
   // Handle account navigation
   const handleChangePasswordClick = () => {
     navigation.navigate('account');
   };
 
   const handleViewAllClick = () => {
-    navigation.navigate('AllProgrammingLanguages');
+    const enrolledModules = [
+      { id: 1, name: 'PHP', description: 'Server-side scripting language.', image: require('../assets/php.jpg'), progress: 0.5 },
+      { id: 2, name: 'COO', description: 'Object-oriented programming language.', image: require('../assets/coo.jpg'), progress: 0.5 },
+      { id: 3, name: 'COO', description: 'Object-oriented programming language.', image: require('../assets/coo.jpg'), progress: 0.5 },
+      // Add more modules as needed...
+    ];
+  
+    navigation.navigate('EnrolledModules', { modules: enrolledModules });
   };
-
   return (
     <View style={styles.container}>
       {/* Submit Button */}
