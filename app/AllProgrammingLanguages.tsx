@@ -125,7 +125,7 @@ const AllProgrammingLanguages: React.FC = () => {
   
       {/* Pass the course title when navigating to enroll */}
       <TouchableOpacity 
-        onPress={() => navigation.navigate('enroll', { courseTitle: item.name })} 
+        onPress={() => navigation.navigate('PaymentScreen', { courseTitle: item.name })} 
         style={styles.enrollButton}>
         <Text style={styles.enrollButtonText}>Enroll Now</Text>
       </TouchableOpacity>
