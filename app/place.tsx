@@ -1,115 +1,440 @@
-import React, { useState } from "react";
-import { View, Text, ScrollView, TextInput, Button } from "react-native";
-import { useTheme } from "react-native-paper";
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import React, { useState } from 'react';
+import { Stack } from 'expo-router';
+import { Button } from '~/components/Button';
+import { Container } from '~/components/Container';
+import { Heading } from '@gluestack-ui/themed';
+import { Text, Image, ScrollView, View, TouchableOpacity, StyleSheet, SafeAreaView, TextInput } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '../navigation/types'; // Import the types
+import HeaderButtons from '~/components/HeaderButtons'; // Import the custom header component
 import Footer from './Footer'; // Import the Footer component
 
-const Hero = () => {
-  const { colors } = useTheme();
+// Define navigation prop type
+type NavigationProp = StackNavigationProp<RootStackParamList, 'index'>;
 
-  const [searchQuery, setSearchQuery] = useState("");
-  const handleChange = (text: string) => {
+const Home: React.FC = () => {
+  const [searchVisible, setSearchVisible] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const navigation = useNavigation<NavigationProp>(); // Use the typed navigation
+
+  const handleSearchPress = () => {
+    setSearchVisible(!searchVisible);
+  };
+
+  const handleSearchChange = (text: string) => {
     setSearchQuery(text);
+    // Implement search logic here
   };
-
-  const onSubmit = () => {
-    console.log("submitted");
-  };
-
-  const features = [
-    {
-      name: "Trusted By Basotho and Internationals",
-      icon: "check-circle",
-    },
-    {
-      name: "Over 50+ Courses",
-      icon: "book-open",
-    },
-    {
-      name: "Outstanding Ratings",
-      icon: "star",
-    },
-  ];
 
   return (
-    <ScrollView contentContainerStyle={{ paddingHorizontal: 16, paddingVertical: 28 }}>
-      {/* Features Section */}
-      <View style={{ marginBottom: 24 }}>
-        <View 
-          style={{ 
-            flexDirection: 'row', 
-            justifyContent: 'space-around', 
-            alignItems: 'flex-start', 
-            flexWrap: 'wrap', 
-            width: '100%' 
-          }}
-        >
-          {features.map((item, idx) => (
-            <View 
-              key={idx} 
-              style={{ 
-                alignItems: 'center', 
-                marginHorizontal: 12, 
-                width: '30%',  // Ensure text wraps inside each feature
-              }}
-            >
-              <MaterialCommunityIcons 
-                name={item.icon} 
-                size={28} 
-                color={colors.primary} 
-              />
-              <Text 
-                style={{ 
-                  color: colors.onSurface, 
-                  textAlign: 'center', 
-                  fontSize: 12,
-                  marginTop: 8,
-                  flexWrap: 'wrap' // Ensure text wraps
-                }}
-              >
-                {item.name}
-              </Text>
+    <SafeAreaView style={styles.container}>
+      <Stack.Screen 
+        options={{
+          headerTitle: () => (
+            <View style={styles.headerContainer}>
+            <Image 
+              source={require('../assets/logo.png')} // Update path to your logo image
+              style={styles.logo}
+              resizeMode="contain"
+            />
+            
             </View>
-          ))}
+          ),
+           
+        }} 
+      />
+
+      {searchVisible && (
+        <View style={styles.searchBarContainer}>
+          <TextInput 
+            style={styles.searchInput}
+            placeholder="Search for courses..."
+            value={searchQuery}
+            onChangeText={handleSearchChange}
+          />
         </View>
-      </View>
+      )}
 
-      {/* Title Section */}
-      <Text style={{ fontSize: 32, fontWeight: 'bold', textAlign: 'center', color: colors.onSurface }}>
-        Explore in-demand courses and develop cutting edge skills
-      </Text>
+      <ScrollView showsVerticalScrollIndicator={true} contentContainerStyle={styles.scrollView}>
+        {/* Section: Programming Languages */}
+        <Container>
+          <View style={styles.sectionHeader}>
+            <Heading style={styles.containerHeading}>Programming</Heading>
+            <TouchableOpacity 
+              onPress={() => navigation.navigate('AllProgrammingLanguages')} // Navigate to view all programming languages
+            >
+              <Text style={styles.viewAllText}>View All</Text>
+            </TouchableOpacity>
+          </View>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            <View style={styles.moduleRow}>
+              {/* Programming Modules */}
+              <View style={styles.moduleContainer}>
+                <TouchableOpacity onPress={() => navigation.navigate('CourseOverview', { course: 'PHP' })}>
+                  <Image
+                    source={require('../assets/php.jpg')}
+                    style={styles.moduleImage}
+                    accessibilityLabel="PHP"
+                  />
+                  <Text style={styles.moduleTitle}>PHP</Text>
+                  <Text style={styles.moduleDescription}>Server-side scripting language.</Text>
+                </TouchableOpacity>
+              </View>
+              <View style={styles.moduleContainer}>
+                <TouchableOpacity onPress={() => navigation.navigate('CourseOverview', { course: 'COO' })}>
+                  <Image
+                    source={require('../assets/coo.jpg')}
+                    style={styles.moduleImage}
+                    accessibilityLabel="COO"
+                  />
+                  <Text style={styles.moduleTitle}>COO</Text>
+                  <Text style={styles.moduleDescription}>Object-oriented programming language.</Text>
+                </TouchableOpacity>
+              </View>
+              <View style={styles.moduleContainer}>
+                <TouchableOpacity onPress={() => navigation.navigate('CourseOverview', { course: 'Java' })}>
+                  <Image
+                    source={require('../assets/java.jpg')}
+                    style={styles.moduleImage}
+                    accessibilityLabel="Java"
+                  />
+                  <Text style={styles.moduleTitle}>Java</Text>
+                  <Text style={styles.moduleDescription}>High-level, class-based programming language.</Text>
+                </TouchableOpacity>
+              </View>
+              <View style={styles.moduleContainer}>
+                <TouchableOpacity onPress={() => navigation.navigate('CourseOverview', { course: 'C Programming' })}>
+                  <Image
+                    source={require('../assets/c-programming.png')}
+                    style={styles.moduleImage}
+                    accessibilityLabel="C Programming"
+                  />
+                  <Text style={styles.moduleTitle}>C Programming</Text>
+                  <Text style={styles.moduleDescription}>Procedural programming language.</Text>
+                </TouchableOpacity>
+              </View>
+              <View style={styles.moduleContainer}>
+                <TouchableOpacity onPress={() => navigation.navigate('CourseOverview', { course: 'Java Programming' })}>
+                  <Image
+                    source={require('../assets/java-programming.jpg')}
+                    style={styles.moduleImage}
+                    accessibilityLabel="Java Programming"
+                  />
+                  <Text style={styles.moduleTitle}>Java Programming</Text>
+                  <Text style={styles.moduleDescription}>Advanced concepts of Java.</Text>
+                </TouchableOpacity>
+              </View>
+              <View style={styles.moduleContainer}>
+                <TouchableOpacity onPress={() => navigation.navigate('CourseOverview', { course: 'Python Programming' })}>
+                  <Image
+                    source={require('../assets/python-programming.jpg')}
+                    style={styles.moduleImage}
+                    accessibilityLabel="Python Programming"
+                  />
+                  <Text style={styles.moduleTitle}>Python Programming</Text>
+                  <Text style={styles.moduleDescription}>Versatile programming language for web development and data analysis.</Text>
+                </TouchableOpacity>
+              </View>
+              <View style={styles.moduleContainer}>
+                <TouchableOpacity onPress={() => navigation.navigate('CourseOverview', { course: 'C++ Programming' })}>
+                  <Image
+                    source={require('../assets/cpp-programming.png')}
+                    style={styles.moduleImage}
+                    accessibilityLabel="C++ Programming"
+                  />
+                  <Text style={styles.moduleTitle}>C++ Programming</Text>
+                  <Text style={styles.moduleDescription}>Language supporting object-oriented, generic, and functional programming.</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </ScrollView>
+        </Container>
 
-      {/* Description Section */}
-      <Text style={{ fontSize: 16, textAlign: 'center', marginTop: 16, color: colors.onSurface }}>
-        Unlock your potential and transform your career with our expertly crafted courses. Join
-        thousands of learners who have gained valuable skills and real-world knowledge to stand
-        out in today&apos;s competitive job market. Start your journey towards success today and
-        invest in yourself for a brighter future!
-      </Text>
+        {/* Section: Computer Science */}
+        <Container>
+          <View style={styles.sectionHeader}>
+            <Heading style={styles.containerHeading}>Computer Science</Heading>
+            <TouchableOpacity 
+              onPress={() => navigation.navigate('ComputerScienceDetails')} // Navigate to view all Computer Science topics
+            >
+              <Text style={styles.viewAllText}>View All</Text>
+            </TouchableOpacity>
+          </View>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            <View style={styles.moduleRow}>
+              {/* Computer Science Modules */}
+              <View style={styles.moduleContainer}>
+                <TouchableOpacity onPress={() => navigation.navigate('CourseOverview', { course: 'Data Structures' })}>
+                  <Image
+                    source={require('../assets/data-structures.jpg')}
+                    style={styles.moduleImage}
+                    accessibilityLabel="Data Structures"
+                  />
+                  <Text style={styles.moduleTitle}>Data Structures</Text>
+                  <Text style={styles.moduleDescription}>Study of data organization and manipulation.</Text>
+                </TouchableOpacity>
+              </View>
+              <View style={styles.moduleContainer}>
+                <TouchableOpacity onPress={() => navigation.navigate('CourseOverview', { course: 'Operating Systems' })}>
+                  <Image
+                    source={require('../assets/operating-systems.jpg')}
+                    style={styles.moduleImage}
+                    accessibilityLabel="Operating Systems"
+                  />
+                  <Text style={styles.moduleTitle}>Operating Systems</Text>
+                  <Text style={styles.moduleDescription}>Fundamentals of operating system design and implementation.</Text>
+                </TouchableOpacity>
+              </View>
+              <View style={styles.moduleContainer}>
+                <TouchableOpacity onPress={() => navigation.navigate('CourseOverview', { course: 'Computer Networks' })}>
+                  <Image
+                    source={require('../assets/computer-networks.jpg')}
+                    style={styles.moduleImage}
+                    accessibilityLabel="Computer Networks"
+                  />
+                  <Text style={styles.moduleTitle}>Computer Networks</Text>
+                  <Text style={styles.moduleDescription}>Introduction to network protocols and architecture.</Text>
+                </TouchableOpacity>
+              </View>
+              <View style={styles.moduleContainer}>
+                <TouchableOpacity onPress={() => navigation.navigate('CourseOverview', { course: 'Database Management' })}>
+                  <Image
+                    source={require('../assets/database-management.jpg')}
+                    style={styles.moduleImage}
+                    accessibilityLabel="Database Management"
+                  />
+                  <Text style={styles.moduleTitle}>Database Management</Text>
+                  <Text style={styles.moduleDescription}>Design and management of databases.</Text>
+                </TouchableOpacity>
+              </View>
+              <View style={styles.moduleContainer}>
+                <TouchableOpacity onPress={() => navigation.navigate('CourseOverview', { course: 'Data Analysis' })}>
+                  <Image
+                    source={require('../assets/data-analysis.jpg')}
+                    style={styles.moduleImage}
+                    accessibilityLabel="Data Analysis"
+                  />
+                  <Text style={styles.moduleTitle}>Data Analysis</Text>
+                  <Text style={styles.moduleDescription}>Techniques and tools for analyzing data.</Text>
+                </TouchableOpacity>
+              </View>
+              <View style={styles.moduleContainer}>
+                <TouchableOpacity onPress={() => navigation.navigate('CourseOverview', { course: 'Software Engineering' })}>
+                  <Image
+                    source={require('../assets/software-engineering.jpg')}
+                    style={styles.moduleImage}
+                    accessibilityLabel="Software Engineering"
+                  />
+                  <Text style={styles.moduleTitle}>Software Engineering</Text>
+                  <Text style={styles.moduleDescription}>Principles and practices of software development.</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </ScrollView>
+        </Container>
 
-      {/* Search Section */}
-      <View style={{ marginTop: 32, width: '100%', alignItems: 'center' }}>
-        <TextInput
-          placeholder="Search your favourite courses" 
-          value={searchQuery}
-          onChangeText={handleChange}
-          style={{
-            width: '90%',
-            backgroundColor: colors.surface,
-            padding: 10,
-            borderRadius: 8,
-            marginBottom: 16,
-            color: colors.onSurface,
-          }}
-        />
-        <Button onPress={onSubmit} title="Search" color={colors.primary} />
-      </View>
+        {/* Section: Artificial Intelligence */}
+        <Container>
+          <View style={styles.sectionHeader}>
+            <Heading style={styles.containerHeading}>Artificial Intelligence</Heading>
+            <TouchableOpacity 
+              onPress={() => navigation.navigate('AI_Courses')} // Navigate to view all AI courses
+            >
+              <Text style={styles.viewAllText}>View All</Text>
+            </TouchableOpacity>
+          </View>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            <View style={styles.moduleRow}>
+              {/* AI Modules */}
+              <View style={styles.moduleContainer}>
+                <TouchableOpacity onPress={() => navigation.navigate('CourseOverview', { course: 'Introduction to AI' })}>
+                  <Image
+                    source={require('../assets/ai1.jpg')}
+                    style={styles.moduleImage}
+                    accessibilityLabel="Introduction to AI"
+                  />
+                  <Text style={styles.moduleTitle}>Introduction to AI</Text>
+                  <Text style={styles.moduleDescription}>Learn the basics of Artificial Intelligence, including key concepts and applications.</Text>
+                  <Text style={styles.modulePrice}>R1299.99</Text>
+                </TouchableOpacity>
+              </View>
+              <View style={styles.moduleContainer}>
+                <TouchableOpacity onPress={() => navigation.navigate('CourseOverview', { course: 'Machine Learning Basics' })}>
+                  <Image
+                    source={require('../assets/ai2.jpg')}
+                    style={styles.moduleImage} 
+                    accessibilityLabel="Machine Learning Basics"
+                  />
+                  <Text style={styles.moduleTitle}>Machine Learning Basics</Text>
+                  <Text style={styles.moduleDescription}>A comprehensive introduction to machine learning techniques and algorithms.</Text>
+                  <Text style={styles.modulePrice}>R129.99</Text>
+                </TouchableOpacity>
+              </View>
+              <View style={styles.moduleContainer}>
+                <TouchableOpacity onPress={() => navigation.navigate('CourseOverview', { course: 'Deep Learning Fundamentals' })}>
+                  <Image
+                    source={require('../assets/ai3.jpg')}
+                    style={styles.moduleImage}
+                    accessibilityLabel="Deep Learning Fundamentals"
+                  />
+                  <Text style={styles.moduleTitle}>Deep Learning Fundamentals</Text>
+                  <Text style={styles.moduleDescription}>Explore deep learning methodologies and their applications in AI.</Text>
+                  <Text style={styles.modulePrice}>R149.99</Text>
+                </TouchableOpacity>
+              </View>
+              {/* Add more AI modules here */}
+            </View>
+          </ScrollView>          
+        </Container>
+      </ScrollView>
 
-
-
-      <Footer /> 
-    </ScrollView>
+      {/* Add Footer component here */}
+      <Footer  />
+    </SafeAreaView>
   );
 };
 
-export default Hero;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    marginLeft: -20,
+    marginRight: -20,
+  },
+
+  headerContainer: {
+    alignItems: 'center',
+    paddingVertical: 10,
+    flexDirection: 'row', // Aligns logo and text in a row
+    justifyContent: 'center',
+    paddingLeft: -10,
+  },
+  headerText: {
+    fontSize: 17,
+    fontWeight: '600',
+    color: '#333',
+    marginLeft: 0, // Space between logo and text
+
+  },
+  
+  scrollView: {
+    paddingVertical: -10,
+    paddingBottom: 60, // Ensure content doesn't overlap with Footer
+    paddingLeft: 0, 
+  },
+  button: {
+    backgroundColor: '#007bff',
+    padding: 10,
+    borderRadius: 5,
+    margin: 10,
+    alignItems: 'center',
+    marginLeft: 0,
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 14,
+  },
+  heading: {
+    fontSize: 32,
+    fontWeight: '300',
+    marginHorizontal: 10,
+    color: '#333',
+    marginLeft: 0,
+  },
+  containerHeading: {
+    marginHorizontal: 5,
+    fontSize: 20,
+    fontWeight: '300',
+    color: '#333',
+    marginLeft: 0,
+    
+  },
+  sectionHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between', // Pushes items to the edges
+    alignItems: 'center',
+    marginHorizontal: 10,
+    marginVertical: -25,
+    paddingLeft: 0,
+  },
+  moduleRow: {
+    flexDirection: 'row',
+    paddingVertical: 10,
+    paddingLeft: 0,
+  },
+  moduleContainer: {
+    width: 220,
+    marginHorizontal: 10,
+    borderRadius: 10,
+    backgroundColor: '#fff',
+    padding: 10,
+    elevation: 2, // Shadow effect for Android
+    shadowColor: '#000', // Shadow color for iOS
+    shadowOffset: { width: 0, height: 2 }, // Shadow offset for iOS
+    shadowOpacity: 0.1, // Shadow opacity for iOS
+    shadowRadius: 4, // Shadow radius for iOS
+    marginLeft: 0,
+  },
+  moduleImage: {
+    width: '100%',
+    height: 120,
+    borderRadius: 10,
+  },
+  moduleTitle: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginVertical: 5,
+  },
+  moduleDescription: {
+    fontSize: 14,
+    color: '#555',
+    marginBottom: 5,
+  },
+  modulePrice: {
+    fontSize: 16,
+    color: '#007bff',
+    fontWeight: 'bold',
+  },
+  image: {
+    width: 200,
+    height: 150,
+    marginHorizontal: 10,
+    borderRadius: 10,
+  },
+  viewAllText: {
+    color: '#007bff',
+    fontSize: 16,
+    textAlign: 'right',
+    fontWeight: 'bold', // To make it look like a clickable link
+    textDecorationLine: 'underline', // Underline the text to indicate it's clickable
+    paddingHorizontal: 5,
+  },
+  searchBarContainer: {
+    backgroundColor: '#fff',
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ddd',
+    borderTopWidth: 1,
+    borderTopColor: '#ddd',
+    elevation: 2, // Shadow effect for Android
+    shadowColor: '#000', // Shadow color for iOS
+    shadowOffset: { width: 0, height: 2 }, // Shadow offset for iOS
+    shadowOpacity: 0.1, // Shadow opacity for iOS
+    shadowRadius: 4, // Shadow radius for iOS
+  },
+  searchInput: {
+    height: 40,
+    borderColor: '#ddd',
+    borderWidth: 1,
+    borderRadius: 5,
+    paddingHorizontal: 10,
+  },
+  logo: {
+    width: 100, // Adjusted size
+    height: 30,
+    marginLeft: -40, // Adjusted size
+  },
+});
+
+export default Home;
