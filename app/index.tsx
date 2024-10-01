@@ -290,7 +290,7 @@ const Home: React.FC = () => {
       </ScrollView>
 
       {/* Add Footer component here */}
-      <Footer onSearchPress={handleSearchPress} data={[]} />
+      <Footer  />
     </SafeAreaView>
   );
 };

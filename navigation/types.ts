@@ -31,6 +31,8 @@ export type RootStackParamList = {
   Profile: undefined;
   AccountScreen: undefined; 
   PasswordChangeScreen: undefined;
+  place: undefined;
+
   
   EnrolledModules: {
     modules: {

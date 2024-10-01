@@ -17,6 +17,8 @@ import EditPersonalScreen from '../app/personalEdit';
 import ProfilePage from '../app/personal'
 import personalEdit from '../app/personalEdit';
 import EnrolledModulesScreen from '../app/EnrolledModules';
+import Hero from '../app/place';
+
 const Stack = createStackNavigator();
 
 const RootStackNavigator: React.FC = () => (
@@ -35,6 +37,7 @@ const RootStackNavigator: React.FC = () => (
     <Stack.Screen name="account" component={AccountScreen} />
     <Stack.Screen name="passwordChange" component={ChangePasswordScreen} />
     <Stack.Screen name="EnrolledModules" component={EnrolledModulesScreen} />
+    <Stack.Screen name="place" component={Hero} />
     {/* <Stack.Screen name="personalEdit" component={EditPersonalScreen} 
     initialParams={{ user: { name: '', surname: '', email: '', contactNumbers: [] } }}
      /> */}
