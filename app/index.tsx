@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, ScrollView, TextInput, Button, StyleSheet } from "react-native";
+import { View, Text, ScrollView, TextInput, Button, StyleSheet, Image } from "react-native";
 import { useTheme } from "react-native-paper";
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Footer from './Footer'; // Import the Footer component
@@ -88,23 +88,16 @@ const Hero = () => {
           invest in yourself for a brighter future!
         </Text>
 
-        {/* Search Section */}
-        <View style={{ marginTop: 32, width: '100%', alignItems: 'center' }}>
-          <TextInput
-            placeholder="Search your favourite courses" 
-            value={searchQuery}
-            onChangeText={handleChange}
-            style={{
-              width: '90%',
-              backgroundColor: colors.surface,
-              padding: 10,
-              borderRadius: 8,
-              marginBottom: 16,
-              color: colors.onSurface,
-            }}
+        
+
+               {/* Image Section */}
+        <View style={{ alignItems: 'center', marginBottom: 24, paddingTop: 50 }}>
+          <Image
+            source={require('../assets/new.jpg')} // Use the relative path to your image
+            style={{ width: 300, height: 300, borderRadius: 19 }} // Adjust the width and height as needed
           />
-          <Button onPress={onSubmit} title="Search" color={colors.primary} />
         </View>
+
       </ScrollView>
       {/* Footer Component */}
       <Footer /> 
