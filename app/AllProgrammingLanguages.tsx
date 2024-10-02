@@ -90,12 +90,16 @@ const courses: Course[] = [
   },
 ];
 
+
 const AllProgrammingLanguages: React.FC = () => {
   const [searchVisible, setSearchVisible] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredCourses, setFilteredCourses] = useState<Course[]>(courses);
   const navigation = useNavigation<any>(); // Use correct type here
+ 
+  
 
+  
   const handleCourseClick = (course: Course) => {
     navigation.navigate('CourseOverview', { course });
   };

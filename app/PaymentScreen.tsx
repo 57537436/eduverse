@@ -40,7 +40,7 @@ const PaymentScreen: React.FC = () => {
   };
 
   const { name, detail } = getPaymentDetails();
-
+  //console.log({ courseTitle, courseDescription, courseImg, coursePrice }); 
   return (
     <View style={styles.container}>
       {/* Course Header */}
