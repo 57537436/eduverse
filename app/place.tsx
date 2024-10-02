@@ -9,6 +9,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../navigation/types'; // Import the types
 import HeaderButtons from '~/components/HeaderButtons'; // Import the custom header component
 import Footer from './Footer'; // Import the Footer component
+import { Searchbar } from 'react-native-paper';
 
 // Define navigation prop type
 type NavigationProp = StackNavigationProp<RootStackParamList, 'index'>;
@@ -18,16 +19,8 @@ const Home: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const navigation = useNavigation<NavigationProp>(); // Use the typed navigation
 
-  const handleSearchPress = () => {
-    setSearchVisible(!searchVisible);
-  };
-
-  const handleSearchChange = (text: string) => {
-    setSearchQuery(text);
-    // Implement search logic here
-  };
-
   return (
+    
     <SafeAreaView style={styles.container}>
       <Stack.Screen 
         options={{
@@ -38,23 +31,18 @@ const Home: React.FC = () => {
               style={styles.logo}
               resizeMode="contain"
             />
-            
-            </View>
+            <Searchbar
+      placeholder="Search"
+      onChangeText={setSearchQuery}
+      value={searchQuery}
+      style={styles.searchBar} // You may want to add a style for the Searchbar
+    />
+                </View>
           ),
            
         }} 
       />
 
-      {searchVisible && (
-        <View style={styles.searchBarContainer}>
-          <TextInput 
-            style={styles.searchInput}
-            placeholder="Search for courses..."
-            value={searchQuery}
-            onChangeText={handleSearchChange}
-          />
-        </View>
-      )}
 
       <ScrollView showsVerticalScrollIndicator={true} contentContainerStyle={styles.scrollView}>
         {/* Section: Programming Languages */}
@@ -433,7 +421,16 @@ const styles = StyleSheet.create({
   logo: {
     width: 100, // Adjusted size
     height: 30,
-    marginLeft: -40, // Adjusted size
+    marginLeft: -100, // Adjusted size
+  },
+  searchBar: {
+    height: 50, // Adjust height as needed
+    borderRadius: 25, // Rounded corners
+    backgroundColor: '#f0f0f0', // Light background
+    elevation: 2, // Optional shadow effect
+    paddingHorizontal: 10, // Padding inside the search bar
+     width: '95%', // Adjust width to increase the length (e.g., 90% of the screen width)
+    marginLeft: -20, // Margin to space it from the logo
   },
 });
 
