@@ -1,11 +1,19 @@
+import { RouteProp, useRoute } from '@react-navigation/native';
 import React, { useState } from 'react';
 import { View, StyleSheet, Modal, TextInput, Alert } from 'react-native';
 import { Text, RadioButton, Button, Card, Title, Paragraph } from 'react-native-paper';
+import { RootStackParamList } from '~/navigation/types';
 
-const PaymentScreen = () => {
+type PaymentScreenRouteProp = RouteProp<RootStackParamList, 'PaymentScreen'>;
+
+const PaymentScreen: React.FC = () => {
+  const route = useRoute<PaymentScreenRouteProp>();
+  const { courseTitle, courseDescription, courseImg, coursePrice } = route.params;
   const [paymentMethod, setPaymentMethod] = useState('Mpesa');
   const [modalVisible, setModalVisible] = useState(false);
   const [pin, setPin] = useState('');
+
+  //console.log(courseTitle, courseDescription, courseImg, coursePrice);
 
   const getPaymentDetails = () => {
     switch (paymentMethod) {
@@ -40,13 +48,15 @@ const PaymentScreen = () => {
       {/* Course Header */}
       <View style={styles.courseHeader}>
         <Card style={styles.courseCard}>
-          <Card.Cover source={{ uri: 'https://example.com/interior-design.jpg' }} style={styles.courseImage} />
+          <Card.Cover source={{ uri: courseImg }} style={styles.courseImage} />
         </Card>
         <View style={styles.courseInfo}>
-          <Title style={styles.courseTitle}>C Programming</Title>
-          <Paragraph style={styles.courseDescription}>
-            Welcome to our C Programming course, a comprehensive journey into the fundamentals of programming.
-          </Paragraph>
+          <Title style={styles.courseTitle}>{courseTitle}</Title>
+          {courseDescription ? (
+            <Paragraph style={styles.courseDescription}>{courseDescription}</Paragraph>
+          ) : (
+            <Text>No Description Available</Text>
+          )}
         </View>
       </View>
 
@@ -54,16 +64,17 @@ const PaymentScreen = () => {
       <View style={styles.paymentOptions}>
         <RadioButton.Group
           onValueChange={(newValue) => setPaymentMethod(newValue)}
-          value={paymentMethod}
-        >
-          <View style={styles.radioButtonContainer}>
+          value={paymentMethod}>
+          <View style={[styles.radioButtonContainer, styles.optionBorder]}>
             <Text>Mpesa</Text>
             <RadioButton value="Mpesa" />
           </View>
-          <View style={styles.radioButtonContainer}>
+
+          <View style={[styles.radioButtonContainer, styles.optionBorder]}>
             <Text>Ecocash</Text>
             <RadioButton value="Ecocash" />
           </View>
+
           <View style={styles.radioButtonContainer}>
             <Text>Bank</Text>
             <RadioButton value="Bank" />
@@ -86,7 +97,7 @@ const PaymentScreen = () => {
       {/* Pay Button */}
       <View style={styles.payButtonContainer}>
         <Button mode="contained" buttonColor="indigo" onPress={handlePayment}>
-          Pay R500
+          Pay {coursePrice}
         </Button>
       </View>
 
@@ -95,8 +106,7 @@ const PaymentScreen = () => {
         animationType="slide"
         transparent={true}
         visible={modalVisible}
-        onRequestClose={() => setModalVisible(false)}
-      >
+        onRequestClose={() => setModalVisible(false)}>
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
             <Text style={styles.modalTitle}>Enter Your PIN for {paymentMethod}</Text>
@@ -109,8 +119,12 @@ const PaymentScreen = () => {
               secureTextEntry
             />
             <View style={styles.buttonRow}>
-              <Button mode="contained" onPress={handleConfirmPayment}>Confirm</Button>
-              <Button mode="text" onPress={() => setModalVisible(false)}>Cancel</Button>
+              <Button mode="contained" onPress={handleConfirmPayment}>
+                Confirm
+              </Button>
+              <Button mode="text" onPress={() => setModalVisible(false)}>
+                Cancel
+              </Button>
             </View>
           </View>
         </View>
@@ -158,6 +172,11 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingVertical: 8,
+    borderColor: 'grey',
+  },
+  optionBorder: {
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc', // Light gray border between options
   },
   paymentDetails: {
     backgroundColor: '#f8f8f8',
