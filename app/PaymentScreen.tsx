@@ -13,16 +13,14 @@ const PaymentScreen: React.FC = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [pin, setPin] = useState('');
 
-  //console.log(courseTitle, courseDescription, courseImg, coursePrice);
-
   const getPaymentDetails = () => {
     switch (paymentMethod) {
       case 'Ecocash':
-        return { name: 'Eduverse Academy', detail: '68944' }; // Merchant number for Ecocash
+        return { name: 'Eduverse Academy', detail: '68944' };
       case 'Mpesa':
-        return { name: 'Eduverse Academy', detail: '58914' }; // Merchant number for Mpesa
+        return { name: 'Eduverse Academy', detail: '58914' };
       case 'Bank':
-        return { name: 'Eduverse Academy', detail: '9080000000' }; // Account number for Bank
+        return { name: 'Eduverse Academy', detail: '9080000000' };
       default:
         return { name: '', detail: '' };
     }
@@ -48,7 +46,11 @@ const PaymentScreen: React.FC = () => {
       {/* Course Header */}
       <View style={styles.courseHeader}>
         <Card style={styles.courseCard}>
-          <Card.Cover source={{ uri: courseImg }} style={styles.courseImage} />
+          {typeof courseImg === 'string' ? (
+            <Card.Cover source={{ uri: courseImg }} style={styles.courseImage} />
+          ) : (
+            <Text>No Image Available</Text>
+          )}
         </Card>
         <View style={styles.courseInfo}>
           <Title style={styles.courseTitle}>{courseTitle}</Title>
@@ -64,7 +66,8 @@ const PaymentScreen: React.FC = () => {
       <View style={styles.paymentOptions}>
         <RadioButton.Group
           onValueChange={(newValue) => setPaymentMethod(newValue)}
-          value={paymentMethod}>
+          value={paymentMethod}
+        >
           <View style={[styles.radioButtonContainer, styles.optionBorder]}>
             <Text>Mpesa</Text>
             <RadioButton value="Mpesa" />
@@ -106,7 +109,8 @@ const PaymentScreen: React.FC = () => {
         animationType="slide"
         transparent={true}
         visible={modalVisible}
-        onRequestClose={() => setModalVisible(false)}>
+        onRequestClose={() => setModalVisible(false)}
+      >
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
             <Text style={styles.modalTitle}>Enter Your PIN for {paymentMethod}</Text>
@@ -176,7 +180,7 @@ const styles = StyleSheet.create({
   },
   optionBorder: {
     borderBottomWidth: 1,
-    borderBottomColor: '#ccc', // Light gray border between options
+    borderBottomColor: '#ccc',
   },
   paymentDetails: {
     backgroundColor: '#f8f8f8',
