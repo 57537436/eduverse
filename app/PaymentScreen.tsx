@@ -7,12 +7,13 @@ import { RootStackParamList } from '~/navigation/types';
 type PaymentScreenRouteProp = RouteProp<RootStackParamList, 'PaymentScreen'>;
 
 const PaymentScreen: React.FC = () => {
-  
   const route = useRoute<PaymentScreenRouteProp>();
-  const { courseTitle } = route.params;
+  const { courseTitle, courseDescription, courseImg, coursePrice } = route.params;
   const [paymentMethod, setPaymentMethod] = useState('Mpesa');
   const [modalVisible, setModalVisible] = useState(false);
   const [pin, setPin] = useState('');
+
+  //console.log(courseTitle, courseDescription, courseImg, coursePrice);
 
   const getPaymentDetails = () => {
     switch (paymentMethod) {
@@ -42,23 +43,20 @@ const PaymentScreen: React.FC = () => {
 
   const { name, detail } = getPaymentDetails();
 
-
   return (
     <View style={styles.container}>
       {/* Course Header */}
       <View style={styles.courseHeader}>
         <Card style={styles.courseCard}>
-          <Card.Cover
-            source={{ uri: 'https://example.com/interior-design.jpg' }}
-            style={styles.courseImage}
-          />
+          <Card.Cover source={{ uri: courseImg }} style={styles.courseImage} />
         </Card>
         <View style={styles.courseInfo}>
           <Title style={styles.courseTitle}>{courseTitle}</Title>
-          <Paragraph style={styles.courseDescription}>
-            Welcome to our C Programming course, a comprehensive journey into the fundamentals of
-            programming.
-          </Paragraph>
+          {courseDescription ? (
+            <Paragraph style={styles.courseDescription}>{courseDescription}</Paragraph>
+          ) : (
+            <Text>No Description Available</Text>
+          )}
         </View>
       </View>
 
@@ -99,7 +97,7 @@ const PaymentScreen: React.FC = () => {
       {/* Pay Button */}
       <View style={styles.payButtonContainer}>
         <Button mode="contained" buttonColor="indigo" onPress={handlePayment}>
-          Pay R500
+          Pay {coursePrice}
         </Button>
       </View>
 
@@ -174,7 +172,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingVertical: 8,
-    borderColor:"grey"
+    borderColor: 'grey',
   },
   optionBorder: {
     borderBottomWidth: 1,

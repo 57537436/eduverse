@@ -9,7 +9,12 @@ import PaymentScreen from './PaymentScreen';
 type RootStackParamList = {
   Home: undefined;
   AllImages: { category: string };
-  PaymentScreen: { courseTitle: string };  // Adjust according to your route params
+  PaymentScreen: {
+    courseTitle: string;
+    courseDescription: string;
+    courseImg: string;
+    coursePrice: number;
+  }; // Adjust according to your route params
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -20,7 +25,6 @@ export default function App() {
       <Stack.Navigator initialRouteName="Home">
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="PaymentScreen" component={PaymentScreen} />
-      
       </Stack.Navigator>
     </NavigationContainer>
   );
