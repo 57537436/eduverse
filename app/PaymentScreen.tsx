@@ -40,14 +40,31 @@ const PaymentScreen: React.FC = () => {
   };
 
   const { name, detail } = getPaymentDetails();
-  //console.log({ courseTitle, courseDescription, courseImg, coursePrice }); 
+  const imageUrls = {
+    22: require('../assets/c-programming.png'),
+    23: '../assets/c-programming.png',
+    24: 'https://example.com/image24.jpg',
+    25: 'https://example.com/image25.jpg',
+    26: 'https://example.com/image26.jpg',
+    27: 'https://example.com/image27.jpg',
+    28: 'https://example.com/image28.jpg',
+    29: 'https://example.com/image29.jpg',
+  };
+  if (typeof courseImg === 'number' && imageUrls[courseImg])
+  {
+    const imgurl = imageUrls[courseImg];
+   
+    console.log(imageUrls[courseImg]);
+ 
+
+  //console.log({ courseTitle, courseDescription, courseImg, coursePrice });
   return (
     <View style={styles.container}>
       {/* Course Header */}
       <View style={styles.courseHeader}>
         <Card style={styles.courseCard}>
-          {typeof courseImg === 'string' ? (
-            <Card.Cover source={{ uri: courseImg }} style={styles.courseImage} />
+          {courseImg ? (
+            <Card.Cover source={ imageUrls[courseImg]} style={styles.courseImage} />
           ) : (
             <Text>No Image Available</Text>
           )}
@@ -66,8 +83,7 @@ const PaymentScreen: React.FC = () => {
       <View style={styles.paymentOptions}>
         <RadioButton.Group
           onValueChange={(newValue) => setPaymentMethod(newValue)}
-          value={paymentMethod}
-        >
+          value={paymentMethod}>
           <View style={[styles.radioButtonContainer, styles.optionBorder]}>
             <Text>Mpesa</Text>
             <RadioButton value="Mpesa" />
@@ -109,8 +125,7 @@ const PaymentScreen: React.FC = () => {
         animationType="slide"
         transparent={true}
         visible={modalVisible}
-        onRequestClose={() => setModalVisible(false)}
-      >
+        onRequestClose={() => setModalVisible(false)}>
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
             <Text style={styles.modalTitle}>Enter Your PIN for {paymentMethod}</Text>
@@ -134,7 +149,9 @@ const PaymentScreen: React.FC = () => {
         </View>
       </Modal>
     </View>
+  
   );
+}
 };
 
 const styles = StyleSheet.create({
