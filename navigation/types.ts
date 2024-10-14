@@ -35,6 +35,8 @@ export type RootStackParamList = {
   AccountScreen: undefined; 
   PasswordChangeScreen: undefined;
   place: undefined;
+  enroll: { courseTitle: string };
+  Home: undefined; 
 
   
   EnrolledModules: {
