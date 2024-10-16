@@ -5,6 +5,18 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../navigation/types';
 import Footer from './Footer'; // Adjust the import path as needed
 
+
+interface Course {
+  id: string;
+  name: string;
+  description: string;
+  price: string;
+  image: any;
+  lessons?: string[];
+  materials?: string[];
+  youtubeLink?: string;
+}
+
 const { width } = Dimensions.get('window');
 
 // Define navigation prop type
@@ -16,7 +28,7 @@ const AI_Courses: React.FC = () => {
   const [isSearchVisible, setSearchVisible] = useState(false);
 
   // Define courses data
-  const courses = [
+  const courses : Course[] = [
     {
       id: '1',
       name: 'Introduction to AI',
@@ -75,7 +87,12 @@ const AI_Courses: React.FC = () => {
       <Text style={styles.itemDescription}>{item.description}</Text>
       <Text style={styles.itemPrice}>{item.price}</Text>
       <TouchableOpacity 
-        onPress={() => navigation.navigate('enroll',{ courseTitle: item.name })} 
+       onPress={() => navigation.navigate('PaymentScreen', { 
+        courseTitle: item.name, 
+        courseDescription: item.description, 
+        courseImg: item.image, 
+        coursePrice: item.price 
+      })}
         style={styles.enrollButton}>
         <Text style={styles.enrollButtonText}>Enroll Now</Text>
       </TouchableOpacity>

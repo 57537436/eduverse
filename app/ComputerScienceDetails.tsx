@@ -111,7 +111,12 @@ const ComputerScienceDetails: React.FC = () => {
       <Text style={styles.itemDescription}>{item.description}</Text>
       <Text style={styles.itemPrice}>{item.price}</Text>
       <TouchableOpacity 
-        onPress={() => navigation.navigate('enroll', { courseTitle: item.name })} 
+       onPress={() => navigation.navigate('PaymentScreen', { 
+        courseTitle: item.name, 
+        courseDescription: item.description, 
+        courseImg: item.image, 
+        coursePrice: item.price 
+      })}
         style={styles.enrollButton}>
         <Text style={styles.enrollButtonText}>Enroll Now</Text>
       </TouchableOpacity>

@@ -27,7 +27,7 @@ export type RootStackParamList = {
   PaymentScreen: { courseTitle: string; 
     courseDescription: string; 
     courseImg: string; 
-    coursePrice: number;  };
+    coursePrice: string;  };
   CourseDetails: { course: any };
   SignUpScreen: undefined;
   LogInScreen: undefined;

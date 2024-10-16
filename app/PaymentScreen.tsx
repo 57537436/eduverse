@@ -12,7 +12,7 @@ const PaymentScreen: React.FC = () => {
   const [paymentMethod, setPaymentMethod] = useState('Mpesa');
   const [modalVisible, setModalVisible] = useState(false);
   const [pin, setPin] = useState('');
-
+console.log(courseImg);
   const getPaymentDetails = () => {
     switch (paymentMethod) {
       case 'Ecocash':
@@ -41,117 +41,127 @@ const PaymentScreen: React.FC = () => {
 
   const { name, detail } = getPaymentDetails();
   const imageUrls = {
+       //All Programming Languages Courses Img
     22: require('../assets/c-programming.png'),
-    23: '../assets/c-programming.png',
-    24: 'https://example.com/image24.jpg',
-    25: 'https://example.com/image25.jpg',
-    26: 'https://example.com/image26.jpg',
-    27: 'https://example.com/image27.jpg',
-    28: 'https://example.com/image28.jpg',
-    29: 'https://example.com/image29.jpg',
+    23: require('../assets/java-programming.jpg'),
+    24: require('../assets/python-programming.jpg'),
+    25: require('../assets/cpp-programming.png'),
+    26: require('../assets/advanced-react.png'),
+    27: require('../assets/basic-javascript.jpg'),
+    28: require('../assets/java.jpg'),
+    29: require('../assets/html.jpeg'),
+
+    //Computer Science Courses Imgs
+    30: require('../assets/data-structures.jpg'),
+    31: require('../assets/operating-systems.jpg'), 
+    32: require('../assets/computer-networks.jpg'), 
+    33: require('../assets/database-management.jpg'), 
+    34: require('../assets/data-analysis.jpg'), 
+    35: require('../assets/software-engineering.jpg'), 
+// ai imgs
+    41: require('../assets/ai1.jpg'),
+    42: require('../assets/ai2.jpg'),
+    43: require('../assets/ai3.jpg'),
   };
-  if (typeof courseImg === 'number' && imageUrls[courseImg])
-  {
+  if (typeof courseImg === 'number' && imageUrls[courseImg]) {
     const imgurl = imageUrls[courseImg];
-   
+
     console.log(imageUrls[courseImg]);
- 
 
-  //console.log({ courseTitle, courseDescription, courseImg, coursePrice });
-  return (
-    <View style={styles.container}>
-      {/* Course Header */}
-      <View style={styles.courseHeader}>
-        <Card style={styles.courseCard}>
-          {courseImg ? (
-            <Card.Cover source={ imageUrls[courseImg]} style={styles.courseImage} />
-          ) : (
-            <Text>No Image Available</Text>
-          )}
-        </Card>
-        <View style={styles.courseInfo}>
-          <Title style={styles.courseTitle}>{courseTitle}</Title>
-          {courseDescription ? (
-            <Paragraph style={styles.courseDescription}>{courseDescription}</Paragraph>
-          ) : (
-            <Text>No Description Available</Text>
-          )}
-        </View>
-      </View>
-
-      {/* Payment Method Selection */}
-      <View style={styles.paymentOptions}>
-        <RadioButton.Group
-          onValueChange={(newValue) => setPaymentMethod(newValue)}
-          value={paymentMethod}>
-          <View style={[styles.radioButtonContainer, styles.optionBorder]}>
-            <Text>Mpesa</Text>
-            <RadioButton value="Mpesa" />
+    //console.log({ courseTitle, courseDescription, courseImg, coursePrice });
+    return (
+      <View style={styles.container}>
+        {/* Course Header */}
+        <View style={styles.courseHeader}>
+          <Card style={styles.courseCard}>
+            {courseImg ? (
+              <Card.Cover source={imageUrls[courseImg]} style={styles.courseImage} />
+            ) : (
+              <Text>No Image Available</Text>
+            )}
+          </Card>
+          <View style={styles.courseInfo}>
+            <Title style={styles.courseTitle}>{courseTitle}</Title>
+            {courseDescription ? (
+              <Paragraph style={styles.courseDescription}>{courseDescription}</Paragraph>
+            ) : (
+              <Text>No Description Available</Text>
+            )}
           </View>
-
-          <View style={[styles.radioButtonContainer, styles.optionBorder]}>
-            <Text>Ecocash</Text>
-            <RadioButton value="Ecocash" />
-          </View>
-
-          <View style={styles.radioButtonContainer}>
-            <Text>Bank</Text>
-            <RadioButton value="Bank" />
-          </View>
-        </RadioButton.Group>
-      </View>
-
-      {/* Payment Details */}
-      <View style={styles.paymentDetails}>
-        <View style={styles.paymentRow}>
-          <Text>{paymentMethod}</Text>
-          <Text>{name}</Text>
         </View>
-        <View style={styles.paymentRow}>
-          <Text>{paymentMethod === 'Bank' ? 'Account Number' : 'Merchant Number'}</Text>
-          <Text>{detail}</Text>
+
+        {/* Payment Method Selection */}
+        <View style={styles.paymentOptions}>
+          <RadioButton.Group
+            onValueChange={(newValue) => setPaymentMethod(newValue)}
+            value={paymentMethod}>
+            <View style={[styles.radioButtonContainer, styles.optionBorder]}>
+              <Text>Mpesa</Text>
+              <RadioButton value="Mpesa" />
+            </View>
+
+            <View style={[styles.radioButtonContainer, styles.optionBorder]}>
+              <Text>Ecocash</Text>
+              <RadioButton value="Ecocash" />
+            </View>
+
+            <View style={styles.radioButtonContainer}>
+              <Text>Bank</Text>
+              <RadioButton value="Bank" />
+            </View>
+          </RadioButton.Group>
         </View>
-      </View>
 
-      {/* Pay Button */}
-      <View style={styles.payButtonContainer}>
-        <Button mode="contained" buttonColor="indigo" onPress={handlePayment}>
-          Pay {coursePrice}
-        </Button>
-      </View>
+        {/* Payment Details */}
+        <View style={styles.paymentDetails}>
+          <View style={styles.paymentRow}>
+            <Text>{paymentMethod}</Text>
+            <Text>{name}</Text>
+          </View>
+          <View style={styles.paymentRow}>
+            <Text>{paymentMethod === 'Bank' ? 'Account Number' : 'Merchant Number'}</Text>
+            <Text>{detail}</Text>
+          </View>
+        </View>
 
-      {/* Modal for entering PIN */}
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => setModalVisible(false)}>
-        <View style={styles.modalContainer}>
-          <View style={styles.modalContent}>
-            <Text style={styles.modalTitle}>Enter Your PIN for {paymentMethod}</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="Enter PIN"
-              value={pin}
-              onChangeText={setPin}
-              keyboardType="numeric"
-              secureTextEntry
-            />
-            <View style={styles.buttonRow}>
-              <Button mode="contained" onPress={handleConfirmPayment}>
-                Confirm
-              </Button>
-              <Button mode="text" onPress={() => setModalVisible(false)}>
-                Cancel
-              </Button>
+        {/* Pay Button */}
+        <View style={styles.payButtonContainer}>
+          <Button mode="contained" buttonColor="indigo" onPress={handlePayment}>
+            Pay {coursePrice}
+          </Button>
+        </View>
+
+        {/* Modal for entering PIN */}
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => setModalVisible(false)}>
+          <View style={styles.modalContainer}>
+            <View style={styles.modalContent}>
+              <Text style={styles.modalTitle}>Enter Your PIN for {paymentMethod}</Text>
+              <TextInput
+                style={styles.input}
+                placeholder="Enter PIN"
+                value={pin}
+                onChangeText={setPin}
+                keyboardType="numeric"
+                secureTextEntry
+              />
+              <View style={styles.buttonRow}>
+                <Button mode="contained" onPress={handleConfirmPayment}>
+                  Confirm
+                </Button>
+                <Button mode="text" onPress={() => setModalVisible(false)}>
+                  Cancel
+                </Button>
+              </View>
             </View>
           </View>
-        </View>
-      </Modal>
-    </View>
-  
-  );
-}
+        </Modal>
+      </View>
+    );
+  }
 };
 
 const styles = StyleSheet.create({
