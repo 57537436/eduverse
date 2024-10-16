@@ -140,7 +140,7 @@ const ComputerScienceDetails: React.FC = () => {
           columnWrapperStyle={styles.grid}
         />
       </View>
-      <Footer onSearchPress={handleSearchPress} data={[]} />
+      {/* <Footer onSearchPress={handleSearchPress} data={[]} /> */}
     </SafeAreaView>
   );
 };

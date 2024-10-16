@@ -102,7 +102,7 @@ const AI_Courses: React.FC = () => {
           columnWrapperStyle={styles.grid}
         />
       </View>
-      <Footer onSearchPress={handleSearchPress} data={[]} />
+      {/* <Footer onSearchPress={handleSearchPress} data={[]} /> */}
     </SafeAreaView>
   );
 };
